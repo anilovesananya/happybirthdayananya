@@ -1,4 +1,4 @@
-const WORKER_URL = "YOUR_CLOUDFLARE_URL_HERE";
+const WORKER_URL = "notion-relay.anirudhavayadande.workers.dev";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const messageElement = document.getElementById("message-text");
