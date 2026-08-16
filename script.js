@@ -1,4 +1,4 @@
-const WORKER_URL = "https://notion-relay.yourusername.workers.dev](https://notion-relay.yourusername.workers.dev";
+const WORKER_URL = "https://notion-relay.anirudhavayadande.workers.dev";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const messageElement = document.getElementById("message-text");
