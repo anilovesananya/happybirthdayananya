@@ -9,12 +9,22 @@ body {
   font-family: 'Inter', sans-serif;
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
+  align-items: flex-start;
+  min-height: 100vh;
   color: #4a4a4a;
+  padding: 3rem 1rem;
 }
 
 .container {
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+}
+
+.today-section {
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -36,13 +46,14 @@ body {
   color: #8c8c8c;
 }
 
-/* Envelope Container */
+/* Envelope Styling */
 .envelope-wrapper {
   position: relative;
   width: 300px;
   height: 200px;
   cursor: pointer;
   transition: transform 0.3s ease;
+  margin-bottom: 2rem;
 }
 
 .envelope-wrapper:hover {
@@ -100,7 +111,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 #message-text {
@@ -113,7 +124,6 @@ body {
   transition: opacity 0.5s ease 0.4s;
 }
 
-/* Active State (When clicked) */
 .envelope-wrapper.open .flap {
   transform: rotateX(180deg);
   z-index: 1;
@@ -127,4 +137,81 @@ body {
 
 .envelope-wrapper.open #message-text {
   opacity: 1;
+}
+
+/* Countdown Styling */
+.countdown-container {
+  margin-top: 1rem;
+}
+
+.countdown-container p {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #8c8c8c;
+  margin-bottom: 0.5rem;
+}
+
+#countdown-timer {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 2.2rem;
+  color: #2c2c2c;
+  letter-spacing: 2px;
+}
+
+/* Archive Grid Styling */
+.archive-section {
+  width: 100%;
+  border-top: 1px solid #e1d5c9;
+  padding-top: 3rem;
+}
+
+.archive-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  color: #2c2c2c;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.archive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.archive-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+  border: 1px solid #f2ede6;
+  transition: transform 0.2s ease;
+}
+
+.archive-card:hover {
+  transform: translateY(-3px);
+}
+
+.archive-card-day {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #2c2c2c;
+  margin-bottom: 0.2rem;
+}
+
+.archive-card-date {
+  font-size: 0.75rem;
+  color: #8c8c8c;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.archive-card-message {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: #4a4a4a;
 }
