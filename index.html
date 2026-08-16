@@ -9,17 +9,33 @@
 </head>
 <body>
   <div class="container">
-    <h1 class="title">Today's Note</h1>
-    <p class="date-display" id="date-display">Loading date...</p>
     
-    <div class="envelope-wrapper" id="envelope-wrapper">
-      <div class="envelope">
-        <div class="flap"></div>
-        <div class="letter">
-          <p id="message-text">Fetching today's note...</p>
+    <div class="today-section">
+      <h1 class="title">Today's Note</h1>
+      <p class="date-display" id="date-display">Loading date...</p>
+      
+      <div class="envelope-wrapper" id="envelope-wrapper">
+        <div class="envelope">
+          <div class="flap"></div>
+          <div class="letter">
+            <p id="message-text">Fetching today's note...</p>
+          </div>
         </div>
       </div>
+      
+      <div class="countdown-container">
+        <p>Next note unlocks in:</p>
+        <h2 id="countdown-timer">00:00:00</h2>
+      </div>
     </div>
+
+    <div class="archive-section">
+      <h3 class="archive-title">Unlocked Memories</h3>
+      <div class="archive-grid" id="archive-grid">
+        <!-- Archive cards will be injected here automatically -->
+      </div>
+    </div>
+
   </div>
   <script src="script.js"></script>
 </body>
