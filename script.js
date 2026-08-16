@@ -63,18 +63,19 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 });
 
-// Accurate Countdown Logic (Calculates offset from server time to prevent clock cheating)
+// Accurate Countdown Logic (Locked strictly to IST)
 function startCountdown(serverTimeMs, element) {
-  const localTimeMs = new Date().getTime();
-  const timeOffset = serverTimeMs - localTimeMs;
-
   setInterval(() => {
-    const now = new Date(new Date().getTime() + timeOffset);
-    
-    const midnight = new Date(now);
-    midnight.setHours(24, 0, 0, 0);
+    // Force the browser to calculate the current time in Indian Standard Time (IST)
+    const now = new Date();
+    const istString = now.toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
+    const istNow = new Date(istString);
 
-    const timeRemaining = midnight - now;
+    // Create a target for midnight in IST
+    const istMidnight = new Date(istString);
+    istMidnight.setHours(24, 0, 0, 0);
+
+    const timeRemaining = istMidnight - istNow;
 
     if (timeRemaining <= 0) {
       element.textContent = "00:00:00";
