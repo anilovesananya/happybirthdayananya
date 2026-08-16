@@ -5,13 +5,14 @@
 }
 
 body {
-  background-color: #fdfbf7;
+  /* A deep, moody cinematic black */
+  background-color: #080808; 
   font-family: 'Inter', sans-serif;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   min-height: 100vh;
-  color: #4a4a4a;
+  color: #E5D3B3; /* Soft parchment/cream text */
   padding: 3rem 1rem;
 }
 
@@ -21,7 +22,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4rem;
+  gap: 5rem;
 }
 
 .today-section {
@@ -29,44 +30,53 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 2.5rem;
+  font-size: 3.5rem;
+  font-weight: 400;
   margin-bottom: 0.5rem;
-  color: #2c2c2c;
+  /* Deep cherry red with a soft cinematic glow */
+  color: #8C1C1C; 
+  text-shadow: 0px 2px 15px rgba(140, 28, 28, 0.4);
+  letter-spacing: 2px;
 }
 
 .date-display {
-  font-size: 0.9rem;
-  letter-spacing: 1px;
+  font-size: 0.85rem;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  margin-bottom: 3rem;
-  color: #8c8c8c;
+  margin-bottom: 4rem;
+  color: #7A7A7A;
 }
 
-/* Envelope Styling */
+/* -----------------
+   The Red Room Envelope 
+------------------- */
 .envelope-wrapper {
   position: relative;
-  width: 300px;
-  height: 200px;
+  width: 320px;
+  height: 210px;
   cursor: pointer;
-  transition: transform 0.3s ease;
-  margin-bottom: 2rem;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  margin-bottom: 3rem;
 }
 
 .envelope-wrapper:hover {
   transform: translateY(-5px);
+  filter: brightness(1.1);
 }
 
 .envelope {
   position: relative;
   width: 100%;
   height: 100%;
-  background: #e1d5c9;
-  border-radius: 4px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  /* Deep velvet curtain red */
+  background: #5A1111; 
+  border-radius: 2px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.8), inset 0 0 20px rgba(0,0,0,0.5);
 }
 
 .envelope::before {
@@ -76,9 +86,9 @@ body {
   left: 0;
   width: 0;
   height: 0;
-  border-left: 150px solid transparent;
-  border-right: 150px solid transparent;
-  border-bottom: 100px solid #d4c6b8;
+  border-left: 160px solid transparent;
+  border-right: 160px solid transparent;
+  border-bottom: 105px solid #4D0E0E; /* Darker red for depth */
   z-index: 3;
 }
 
@@ -88,11 +98,11 @@ body {
   left: 0;
   width: 0;
   height: 0;
-  border-left: 150px solid transparent;
-  border-right: 150px solid transparent;
-  border-top: 100px solid #c9baa8;
+  border-left: 160px solid transparent;
+  border-right: 160px solid transparent;
+  border-top: 105px solid #6B1515; /* Top flap */
   transform-origin: top;
-  transition: transform 0.6s ease;
+  transition: transform 0.7s cubic-bezier(0.19, 1, 0.22, 1);
   z-index: 4;
 }
 
@@ -102,12 +112,12 @@ body {
   left: 5%;
   width: 90%;
   height: 80%;
-  background: white;
-  border-radius: 4px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-  transition: transform 0.6s ease, height 0.6s ease;
+  background: #F4F1EA; /* Stark typewriter paper */
+  border-radius: 2px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  transition: transform 0.7s cubic-bezier(0.19, 1, 0.22, 1), height 0.7s ease;
   z-index: 2;
-  padding: 20px;
+  padding: 25px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -116,12 +126,13 @@ body {
 
 #message-text {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-style: italic;
+  color: #111; /* Stark black ink */
   text-align: center;
-  line-height: 1.5;
+  line-height: 1.6;
   opacity: 0;
-  transition: opacity 0.5s ease 0.4s;
+  transition: opacity 0.6s ease 0.5s;
 }
 
 .envelope-wrapper.open .flap {
@@ -130,8 +141,8 @@ body {
 }
 
 .envelope-wrapper.open .letter {
-  transform: translateY(-80px);
-  height: 250px;
+  transform: translateY(-90px);
+  height: 270px;
   z-index: 5;
 }
 
@@ -139,79 +150,100 @@ body {
   opacity: 1;
 }
 
-/* Countdown Styling */
+/* -----------------
+   Neon/Glowing Timer
+------------------- */
 .countdown-container {
   margin-top: 1rem;
+  text-align: center;
 }
 
 .countdown-container p {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #8c8c8c;
-  margin-bottom: 0.5rem;
+  letter-spacing: 2px;
+  color: #555;
+  margin-bottom: 0.8rem;
 }
 
 #countdown-timer {
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  font-size: 2.2rem;
-  color: #2c2c2c;
-  letter-spacing: 2px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: 2.8rem;
+  color: #E5D3B3;
+  letter-spacing: 4px;
+  /* Soft eerie glow */
+  text-shadow: 0 0 15px rgba(229, 211, 179, 0.15); 
 }
 
-/* Archive Grid Styling */
+/* -----------------
+   Chevron Archive Grid
+------------------- */
 .archive-section {
   width: 100%;
-  border-top: 1px solid #e1d5c9;
-  padding-top: 3rem;
+  padding-top: 4rem;
+  border-top: 1px solid #1A1A1A;
+  
+  /* Subtle Black Lodge Chevron Pattern */
+  background-color: #080808;
+  background-image: linear-gradient(45deg, #0b0b0b 25%, transparent 25%, transparent 75%, #0b0b0b 75%, #0b0b0b),
+                    linear-gradient(45deg, #0b0b0b 25%, transparent 25%, transparent 75%, #0b0b0b 75%, #0b0b0b);
+  background-size: 40px 40px;
+  background-position: 0 0, 20px 20px;
 }
 
 .archive-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.8rem;
-  color: #2c2c2c;
-  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 400;
+  color: #7A7A7A;
+  margin-bottom: 3rem;
   text-align: center;
+  letter-spacing: 1px;
 }
 
 .archive-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
 .archive-card {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.03);
-  border: 1px solid #f2ede6;
-  transition: transform 0.2s ease;
+  background: rgba(15, 15, 15, 0.85); /* Frosted dark glass */
+  backdrop-filter: blur(5px);
+  padding: 2rem;
+  border-radius: 2px;
+  border-left: 2px solid #5A1111; /* Sharp red accent */
+  border-top: 1px solid #1A1A1A;
+  border-right: 1px solid #1A1A1A;
+  border-bottom: 1px solid #1A1A1A;
+  transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .archive-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
+  border-left-color: #8C1C1C;
 }
 
 .archive-card-day {
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: #2c2c2c;
-  margin-bottom: 0.2rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  color: #E5D3B3;
+  margin-bottom: 0.3rem;
 }
 
 .archive-card-date {
-  font-size: 0.75rem;
-  color: #8c8c8c;
-  margin-bottom: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  color: #555;
+  margin-bottom: 1.5rem;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
 }
 
 .archive-card-message {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem;
-  line-height: 1.5;
-  color: #4a4a4a;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: #999;
 }
