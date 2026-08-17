@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'MyHandwriting';
+  src: url('Myfont-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -127,10 +134,9 @@ body {
 }
 
 #message-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.3rem;
-  font-style: italic;
-  color: #111; 
+  font-family: 'MyHandwriting', sans-serif; /* Using your custom font */
+  font-size: 1.6rem; /* Slightly larger for handwriting legibility */
+  color: #0F2557; /* Deep ballpoint pen blue */
   text-align: center;
   line-height: 1.6;
   opacity: 0;
