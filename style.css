@@ -112,28 +112,34 @@ body {
   left: 5%;
   width: 90%;
   height: 80%;
-  background: #F4F1EA; /* Stark typewriter paper */
+  background: #F4F1EA; 
   border-radius: 2px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.5);
   transition: transform 0.7s cubic-bezier(0.19, 1, 0.22, 1), height 0.7s ease;
   z-index: 2;
   padding: 25px;
+  
+  /* OVERFLOW FIX */
   display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow-y: auto;
+  flex-direction: column;
+  justify-content: flex-start; /* Forces long text to start at the top boundary */
+  overflow-y: auto; /* Keeps the scrollbar active */
 }
 
 #message-text {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.3rem;
   font-style: italic;
-  color: #111; /* Stark black ink */
+  color: #111; 
   text-align: center;
   line-height: 1.6;
   opacity: 0;
   transition: opacity 0.6s ease 0.5s;
+  
+  /* OVERFLOW FIX */
+  margin: auto 0; /* Magically centers short notes vertically, but lets long notes scroll properly */
 }
+
 
 .envelope-wrapper.open .flap {
   transform: rotateX(180deg);
