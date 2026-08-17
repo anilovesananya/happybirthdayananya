@@ -14,7 +14,8 @@
 body {
   /* A deep, moody cinematic black */
   background-color: #080808; 
-  font-family: 'Inter', sans-serif;
+  /* Global Handwriting Font */
+  font-family: 'MyHandwriting', sans-serif;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -41,7 +42,6 @@ body {
 }
 
 .title {
-  font-family: 'Cormorant Garamond', serif;
   font-size: 3.5rem;
   font-weight: 400;
   margin-bottom: 0.5rem;
@@ -52,8 +52,8 @@ body {
 }
 
 .date-display {
-  font-size: 0.85rem;
-  letter-spacing: 3px;
+  font-size: 1.2rem; /* Bumped up slightly for handwriting legibility */
+  letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 4rem;
   color: #7A7A7A;
@@ -134,7 +134,6 @@ body {
 }
 
 #message-text {
-  font-family: 'MyHandwriting', sans-serif; /* Using your custom font */
   font-size: 1.6rem; /* Slightly larger for handwriting legibility */
   color: #0F2557; /* Deep ballpoint pen blue */
   text-align: center;
@@ -171,7 +170,7 @@ body {
 }
 
 .countdown-container p {
-  font-size: 0.75rem;
+  font-size: 1rem; /* Adjusted for handwriting */
   text-transform: uppercase;
   letter-spacing: 2px;
   color: #555;
@@ -179,7 +178,6 @@ body {
 }
 
 #countdown-timer {
-  font-family: 'Cormorant Garamond', serif;
   font-weight: 400;
   font-size: 2.8rem;
   color: #E5D3B3;
@@ -205,7 +203,6 @@ body {
 }
 
 .archive-title {
-  font-family: 'Cormorant Garamond', serif;
   font-size: 2rem;
   font-weight: 400;
   color: #7A7A7A;
@@ -238,15 +235,13 @@ body {
 }
 
 .archive-card-day {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.2rem;
+  font-size: 1.4rem; /* Adjusted for handwriting */
   color: #E5D3B3;
   margin-bottom: 0.3rem;
 }
 
 .archive-card-date {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.9rem; /* Adjusted for handwriting */
   color: #555;
   margin-bottom: 1.5rem;
   text-transform: uppercase;
@@ -254,8 +249,7 @@ body {
 }
 
 .archive-card-message {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.15rem;
+  font-size: 1.25rem; /* Adjusted for handwriting */
   line-height: 1.6;
   color: #999;
 }
