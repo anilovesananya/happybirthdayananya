@@ -13,7 +13,7 @@
 
 body {
   font-family: 'Nunito', sans-serif;
-  background-color: #0d0d2b;
+  background-color: #0b0b24;
   color: #fff9f0;
   overflow-x: hidden;
 }
@@ -22,13 +22,15 @@ body {
 ::-webkit-scrollbar { width: 0; height: 0; }
 html { scrollbar-width: none; }
 
-/* ─── ACCENTS & MEMPHIS BG ─── */
+/* ─── ACCENTS & MEMPHIS BG WITH DEPTH ─── */
 .memphis-bg {
-  background-color: #0d0d2b;
+  background-color: #0b0b24;
   background-image:
-    radial-gradient(circle at 15% 20%, rgba(255, 0, 144, 0.12) 0%, transparent 40%),
-    radial-gradient(circle at 85% 75%, rgba(26, 26, 255, 0.15) 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(255, 230, 0, 0.06) 0%, transparent 60%);
+    radial-gradient(circle at 15% 30%, rgba(255, 0, 144, 0.18) 0%, transparent 50%),
+    radial-gradient(circle at 85% 70%, rgba(26, 26, 255, 0.22) 0%, transparent 50%),
+    radial-gradient(circle at 50% 100%, rgba(255, 230, 0, 0.1) 0%, transparent 50%),
+    radial-gradient(rgba(255, 249, 240, 0.08) 1.5px, transparent 1.5px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 28px 28px;
 }
 
 .accent {
@@ -291,7 +293,11 @@ html { scrollbar-width: none; }
 
 /* ─── CALENDAR ARCHIVE SECTION ─── */
 .calendar-section {
-  background: #0d0d2b;
+  background-color: #0b0b24;
+  background-image:
+    radial-gradient(circle at 50% 0%, rgba(26, 26, 255, 0.15) 0%, transparent 60%),
+    radial-gradient(rgba(255, 249, 240, 0.08) 1.5px, transparent 1.5px);
+  background-size: 100% 100%, 28px 28px;
   min-height: 80vh;
   position: relative;
   overflow: hidden;
@@ -453,7 +459,7 @@ html { scrollbar-width: none; }
 .unlocked-box { background: #ff0090; }
 .today-box { border: 2px solid #ffe600; background: transparent; }
 
-/* ─── MODAL / POPUP (ITEM 1 ON MASTER SHEET) ─── */
+/* ─── MODAL / POPUP ─── */
 .modal-backdrop {
   position: fixed;
   inset: 0;
