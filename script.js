@@ -1,5 +1,6 @@
 // Paste your exact live Cloudflare Worker URL here
-const WORKER_URL = "https://YOUR_WORKER_URL_HERE"; 
+const WORKER_URL = "const WORKER_URL = "https://notion-relay.anirudha.workers.dev";
+"; 
 
 let appData = {
   todayNote: null,
