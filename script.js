@@ -1,199 +1,208 @@
-// ─── CONFIGURATION ───
-const START_DATE = new Date("2026-08-22T00:00:00+05:30"); // IST Start Date
-const WORKER_URL = "https://notion-relay.anirudhavayadande.workers.dev";
+const WORKER_URL = "https://notion-relay.anirudhavayadande.workers.dev/";
 
-let unlockedNotes = {};
+let appData = {
+  todayNote: null,
+  archive: [],
+  todayDateStr: ""
+};
 
-// ─── DOM ELEMENTS ───
-const envelopeWrapper = document.getElementById("envelope-wrapper");
-const envelopeHint = document.getElementById("envelope-hint");
-const messageText = document.getElementById("message-text");
-const todayDayLabel = document.getElementById("today-day-label");
+let currentYear = new Date().getFullYear();
+let currentMonth = new Date().getMonth();
 
-const timerHours = document.getElementById("timer-hours");
-const timerMinutes = document.getElementById("timer-minutes");
-const timerSeconds = document.getElementById("timer-seconds");
+document.addEventListener("DOMContentLoaded", async () => {
+  const envelope = document.getElementById("envelope-wrapper");
+  const envelopeHint = document.getElementById("envelope-hint");
+  const messageElement = document.getElementById("message-text");
+  const todayDayLabel = document.getElementById("today-day-label");
 
-const daysGrid = document.getElementById("days-grid");
-const calendarMonthTitle = document.getElementById("calendar-month-title");
-const prevMonthBtn = document.getElementById("prev-month-btn");
-const nextMonthBtn = document.getElementById("next-month-btn");
-
-const archiveModal = document.getElementById("archive-modal");
-const modalCloseBtn = document.getElementById("modal-close-btn");
-const modalDayPill = document.getElementById("modal-day-pill");
-const modalMessageText = document.getElementById("modal-message-text");
-
-// Calendar View State
-let currentCalDate = new Date();
-
-// ─── TIME & DAY CALCULATIONS (IST) ───
-function getISTNow() {
-  const now = new Date();
-  const utc = now.getTime() + now.getTimezoneOffset() * 60000;
-  return new Date(utc + 3600000 * 5.5);
-}
-
-function getDaysSinceStart() {
-  const istNow = getISTNow();
-  const diffTime = istNow - START_DATE;
-  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
-  return Math.max(1, diffDays);
-}
-
-// ─── FETCH NOTES FROM CLOUDFLARE / NOTION ───
-async function fetchNotes() {
-  try {
-    const res = await fetch(WORKER_URL);
-    const data = await res.json();
-    unlockedNotes = data;
-    renderTodayNote();
-    renderCalendar();
-  } catch (err) {
-    console.error("Error fetching notes:", err);
-    messageText.textContent = "Happy Birthday Ananya! ♥";
-    todayDayLabel.textContent = "Day 1";
+  // Envelope Open / Close toggle
+  if (envelope) {
+    envelope.addEventListener("click", () => {
+      const isOpen = envelope.classList.toggle("envelope-open");
+      if (envelopeHint) {
+        envelopeHint.textContent = isOpen ? "✕ click to close" : "♥ click to open";
+      }
+    });
   }
-}
 
-function renderTodayNote() {
-  const currentDay = getDaysSinceStart();
-  todayDayLabel.textContent = `Day ${currentDay}`;
-  
-  if (unlockedNotes[currentDay]) {
-    messageText.textContent = unlockedNotes[currentDay];
-  } else {
-    messageText.textContent = "Happy birthday, Ananya! Today marks the beginning of 365 days of love notes.";
-  }
-}
-
-// ─── ENVELOPE TOGGLE ───
-if (envelopeWrapper) {
-  envelopeWrapper.addEventListener("click", () => {
-    envelopeWrapper.classList.toggle("envelope-open");
-    if (envelopeWrapper.classList.contains("envelope-open")) {
-      envelopeHint.innerHTML = '<span class="hint-close">✕ click to close</span>';
+  // Calendar month buttons
+  document.getElementById("prev-month-btn")?.addEventListener("click", () => {
+    if (currentMonth === 0) {
+      currentMonth = 11;
+      currentYear -= 1;
     } else {
-      envelopeHint.innerHTML = "♥ click to open";
+      currentMonth -= 1;
     }
+    renderCalendar(currentYear, currentMonth);
   });
-}
 
-// ─── COUNTDOWN TIMER (SYNCED TO IST MIDNIGHT) ───
-function updateCountdown() {
-  const istNow = getISTNow();
-  const tomorrowIST = new Date(istNow);
-  tomorrowIST.setHours(24, 0, 0, 0);
+  document.getElementById("next-month-btn")?.addEventListener("click", () => {
+    if (currentMonth === 11) {
+      currentMonth = 0;
+      currentYear += 1;
+    } else {
+      currentMonth += 1;
+    }
+    renderCalendar(currentYear, currentMonth);
+  });
 
-  const diff = tomorrowIST - istNow;
+  // Modal setup
+  const modal = document.getElementById("archive-modal");
+  const modalClose = document.getElementById("modal-close-btn");
+  modalClose?.addEventListener("click", () => modal.classList.remove("active"));
+  modal?.addEventListener("click", (e) => {
+    if (e.target === modal) modal.classList.remove("active");
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") modal?.classList.remove("active");
+  });
 
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((diff / 1000 / 60) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
+  // Start IST Countdown
+  startISTCountdown();
 
-  if (timerHours) timerHours.textContent = String(hours).padStart(2, "0");
-  if (timerMinutes) timerMinutes.textContent = String(minutes).padStart(2, "0");
-  if (timerSeconds) timerSeconds.textContent = String(seconds).padStart(2, "0");
-}
-setInterval(updateCountdown, 1000);
-updateCountdown();
+  // Fetch Live Data
+  try {
+    const response = await fetch(WORKER_URL);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log("Worker Response Data:", data);
+    appData = data;
 
-// ─── CALENDAR RENDERING ───
-const MONTH_NAMES = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
+    const getMessageText = (noteObj) => {
+      if (!noteObj) return null;
+      return noteObj.message || noteObj.content || noteObj.note || noteObj.text || (typeof noteObj === 'string' ? noteObj : null);
+    };
 
-function renderCalendar() {
-  if (!daysGrid) return;
+    const todayMsg = getMessageText(data.todayNote) || getMessageText(data);
+    const dayNum = (data.todayNote && (data.todayNote.day || data.todayNote.Day)) || data.day || 1;
+
+    if (todayMsg && messageElement) {
+      messageElement.textContent = todayMsg;
+      if (todayDayLabel) {
+        todayDayLabel.textContent = `Note #${dayNum}`;
+      }
+    } else if (messageElement) {
+      messageElement.textContent = "No note available for today yet!";
+    }
+
+    renderCalendar(currentYear, currentMonth);
+
+  } catch (error) {
+    console.error("Error fetching Notion notes:", error);
+    if (messageElement) {
+      messageElement.textContent = "Oops! Couldn't load today's note.";
+    }
+    renderCalendar(currentYear, currentMonth);
+  }
+});
+
+// ─── CALENDAR RENDERER ───
+function renderCalendar(year, month) {
+  const daysGrid = document.getElementById("days-grid");
+  const monthTitle = document.getElementById("calendar-month-title");
+  if (!daysGrid || !monthTitle) return;
+
+  const dateObj = new Date(year, month, 1);
+  monthTitle.textContent = dateObj.toLocaleString("default", { month: "long", year: "numeric" });
+
   daysGrid.innerHTML = "";
 
-  const year = currentCalDate.getFullYear();
-  const month = currentCalDate.getMonth();
-
-  calendarMonthTitle.textContent = `${MONTH_NAMES[month]} ${year}`;
-
-  const firstDay = new Date(year, month, 1).getDay();
+  const firstDayIndex = new Date(year, month, 1).getDay();
   const totalDays = new Date(year, month + 1, 0).getDate();
 
-  const istNow = getISTNow();
-  const currentDayCount = getDaysSinceStart();
+  const istNow = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+  const isThisMonth = istNow.getFullYear() === year && istNow.getMonth() === month;
+  const todayDayNum = istNow.getDate();
 
-  // Empty leading cells
-  for (let i = 0; i < firstDay; i++) {
+  for (let i = 0; i < firstDayIndex; i++) {
     const emptyCell = document.createElement("div");
     emptyCell.className = "calendar-day empty";
     daysGrid.appendChild(emptyCell);
   }
 
-  // Days of month
+  const unlockedMap = {};
+  if (appData.archive && Array.isArray(appData.archive)) {
+    appData.archive.forEach((item) => {
+      const dateKey = item.date || item.Date;
+      if (dateKey) unlockedMap[dateKey] = item;
+    });
+  }
+  if (appData.todayNote) {
+    const todayKey = appData.todayNote.date || appData.todayNote.Date || appData.todayDateStr;
+    if (todayKey) unlockedMap[todayKey] = appData.todayNote;
+  }
+
   for (let d = 1; d <= totalDays; d++) {
     const dayCell = document.createElement("div");
     dayCell.className = "calendar-day";
     dayCell.textContent = d;
 
-    const thisDate = new Date(year, month, d, 23, 59, 59);
-    const dayDiff = Math.floor((thisDate - START_DATE) / (1000 * 60 * 60 * 24)) + 1;
+    const formattedDate = `${year}-${String(month + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
 
-    // Check if day is unlocked
-    if (dayDiff >= 1 && dayDiff <= currentDayCount) {
-      dayCell.classList.add("unlocked");
-      dayCell.addEventListener("click", () => openArchiveModal(dayDiff, d, MONTH_NAMES[month]));
+    if (isThisMonth && d === todayDayNum) {
+      dayCell.classList.add("today");
     }
 
-    // Check if it's today
-    if (
-      d === istNow.getDate() &&
-      month === istNow.getMonth() &&
-      year === istNow.getFullYear()
-    ) {
-      dayCell.classList.add("today");
+    const note = unlockedMap[formattedDate];
+    if (note) {
+      dayCell.classList.add("unlocked");
+      dayCell.addEventListener("click", () => {
+        openNoteModal(note, d);
+      });
     }
 
     daysGrid.appendChild(dayCell);
   }
 }
 
-// Calendar Month Navigation
-if (prevMonthBtn) {
-  prevMonthBtn.addEventListener("click", () => {
-    currentCalDate.setMonth(currentCalDate.getMonth() - 1);
-    renderCalendar();
-  });
+// ─── POPUP MODAL ───
+function openNoteModal(note, dayNum) {
+  const modal = document.getElementById("archive-modal");
+  const modalPill = document.getElementById("modal-day-pill");
+  const modalMessage = document.getElementById("modal-message-text");
+
+  if (!modal || !modalPill || !modalMessage) return;
+
+  const day = note.day || note.Day || dayNum;
+  const msg = note.message || note.content || note.note || note.text || "No content found for this day.";
+
+  modalPill.textContent = `Note from Day ${day}`;
+  modalMessage.textContent = msg;
+
+  modal.classList.add("active");
 }
 
-if (nextMonthBtn) {
-  nextMonthBtn.addEventListener("click", () => {
-    currentCalDate.setMonth(currentCalDate.getMonth() + 1);
-    renderCalendar();
-  });
-}
+// ─── IST MIDNIGHT COUNTDOWN ───
+function startISTCountdown() {
+  const hoursEl = document.getElementById("timer-hours");
+  const minsEl = document.getElementById("timer-minutes");
+  const secsEl = document.getElementById("timer-seconds");
 
-// ─── ARCHIVE MODAL / POPUP ───
-function openArchiveModal(dayNumber, dateNum, monthName) {
-  modalDayPill.textContent = `Day ${dayNumber}`;
-  
-  if (unlockedNotes[dayNumber]) {
-    modalMessageText.textContent = unlockedNotes[dayNumber];
-  } else {
-    modalMessageText.textContent = "A sweet love note for this day. ♥";
-  }
-  archiveModal.classList.add("active");
-}
+  setInterval(() => {
+    const now = new Date();
+    const istString = now.toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
+    const istNow = new Date(istString);
 
-if (modalCloseBtn) {
-  modalCloseBtn.addEventListener("click", () => {
-    archiveModal.classList.remove("active");
-  });
-}
+    const istMidnight = new Date(istString);
+    istMidnight.setHours(24, 0, 0, 0);
 
-if (archiveModal) {
-  archiveModal.addEventListener("click", (e) => {
-    if (e.target === archiveModal) {
-      archiveModal.classList.remove("active");
+    const timeRemaining = istMidnight - istNow;
+
+    if (timeRemaining <= 0) {
+      if (hoursEl) hoursEl.textContent = "00";
+      if (minsEl) minsEl.textContent = "00";
+      if (secsEl) secsEl.textContent = "00";
+      return;
     }
-  });
-}
 
-// ─── INIT ───
-fetchNotes();
+    const hours = Math.floor((timeRemaining / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((timeRemaining / 1000 / 60) % 60);
+    const seconds = Math.floor((timeRemaining / 1000) % 60);
+
+    if (hoursEl) hoursEl.textContent = String(hours).padStart(2, "0");
+    if (minsEl) minsEl.textContent = String(minutes).padStart(2, "0");
+    if (secsEl) secsEl.textContent = String(seconds).padStart(2, "0");
+  }, 1000);
+}
