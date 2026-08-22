@@ -23,9 +23,23 @@ body {
   background-size: 420px auto;
 }
 
-/* Scrollbar reset */
-::-webkit-scrollbar { width: 0; height: 0; }
-html { scrollbar-width: none; }
+/* ─── CUSTOM YELLOW SCROLLBAR ─── */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0c0b22;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #ffe600;
+  border-radius: 8px;
+  border: 2px solid #0c0b22; /* Adds a little padding gap */
+}
+html {
+  /* Firefox support */
+  scrollbar-color: #ffe600 #0c0b22;
+  scrollbar-width: thin;
+}
 
 /* ─── ACCENTS ─── */
 .memphis-bg {
@@ -109,31 +123,36 @@ html { scrollbar-width: none; }
   align-items: center;
 }
 
+/* Note Slide */
 .note-slide {
   position: absolute;
   left: 50%;
-  top: 20px;
-  transform: translateX(-50%) translateY(60px);
-  width: calc(100% - 40px);
-  max-height: 320px;
+  top: 10px;
+  transform: translateX(-50%) translateY(30px);
+  width: calc(100% - 24px);
+  min-height: 260px;
+  height: auto;
+  max-height: 480px;
   background: #fff9f0;
   color: #0d0d2b;
-  border-radius: 1rem;
-  box-shadow: 0 20px 35px rgba(0,0,0,0.6);
-  padding: 1.5rem 1.5rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+  padding: 1.75rem 1.5rem;
   text-align: center;
   opacity: 0;
-  z-index: 10;
+  z-index: 25;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: flex-start; /* Fixes text clipping at the top */
   overflow-y: auto;
-  transition: transform 0.5s 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s 0.3s ease;
+  pointer-events: none;
+  transition: transform 0.5s 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s 0.2s ease;
 }
 
 .envelope-open .note-slide {
-  transform: translateX(-50%) translateY(-50px);
+  transform: translateX(-50%) translateY(-70px);
   opacity: 1;
+  pointer-events: auto;
 }
 
 .note-pill {
@@ -151,7 +170,8 @@ html { scrollbar-width: none; }
   font-size: 1.45rem;
   line-height: 1.5;
   color: #0d0d2b;
-  margin: auto 0;
+  margin: 0.5rem 0;
+  word-break: break-word;
 }
 
 .note-author {
@@ -161,6 +181,7 @@ html { scrollbar-width: none; }
   color: #1a1aff;
 }
 
+/* Envelope Body */
 .envelope-body {
   position: relative;
   width: 100%;
@@ -247,22 +268,15 @@ html { scrollbar-width: none; }
   display: inline-block;
   position: relative;
   z-index: 5;
-  transition: all 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-/* Floating Action Button when open */
+/* Hides the hint button gracefully when envelope opens */
 .envelope-open .click-hint {
-  position: fixed;
-  bottom: 4rem; 
-  left: 50%;
-  transform: translateX(-50%);
-  margin-top: 0;
-  z-index: 9999;
-  background: #ff0090;
-  color: #fff9f0;
-  border-color: #ff0090;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  pointer-events: none;
 }
+
 /* ─── COUNTDOWN SECTION ─── */
 .countdown-section {
   background: #ff0090;
@@ -565,9 +579,9 @@ html { scrollbar-width: none; }
 }
 
 .modal-pill {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-family: 'JetBrains Mono', monospace;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: #ff0090;
@@ -576,14 +590,14 @@ html { scrollbar-width: none; }
 
 .modal-message {
   font-family: 'MyHandwriting', 'Fraunces', serif;
-  font-size: 1.5rem;
-  line-height: 1.5;
+  font-size: 1.45rem;
+  line-height: 1.55;
   color: #0d0d2b;
   margin-bottom: 1rem;
 }
 
 .modal-author {
   font-size: 0.9rem;
-  font-weight: 700;
+  font-weight: 800;
   color: #1a1aff;
 }
