@@ -3,40 +3,141 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A Note For You</title>
+  <title>From Anirudha to Ananya</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=JetBrains+Mono:wght@400;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
-    
-    <div class="today-section">
-      <h1 class="title">Today's Note</h1>
-      <p class="date-display" id="date-display">Loading date...</p>
-      
-      <div class="envelope-wrapper" id="envelope-wrapper">
-        <div class="envelope">
-          <div class="flap"></div>
-          <div class="letter">
-            <p id="message-text">Fetching today's note...</p>
+
+  <!-- ─── ENVELOPE HERO SECTION ─── -->
+  <section class="memphis-bg envelope-section">
+    <!-- Memphis Accents -->
+    <div class="accent circle-yellow"></div>
+    <div class="accent diamond-pink"></div>
+    <div class="accent circle-blue"></div>
+    <div class="accent diamond-coral"></div>
+    <div class="accent pill-mint"></div>
+    <div class="accent pill-yellow"></div>
+
+    <div class="header-pill">A love note</div>
+
+    <h1 class="main-title">
+      From <span class="highlight-yellow">Anirudha</span><br>
+      to <span class="highlight-pink">Ananya</span>
+    </h1>
+
+    <!-- Envelope -->
+    <div class="envelope-container" id="envelope-wrapper" aria-label="Open envelope">
+      <!-- Sliding Note -->
+      <div class="note-slide">
+        <p class="note-pill" id="today-day-label">Today's Note</p>
+        <p class="note-message" id="message-text">Loading today's note...</p>
+        <p class="note-author">— Anirudha ♥</p>
+      </div>
+
+      <!-- Envelope Body -->
+      <div class="envelope-body">
+        <div class="env-back"></div>
+        <div class="env-crease"></div>
+        <div class="env-left-triangle"></div>
+        <div class="env-right-triangle"></div>
+
+        <!-- Flap -->
+        <div class="envelope-flap">
+          <div class="flap-heart">
+            <svg width="48" height="44" viewBox="0 0 48 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 40S4 26 4 14a10 10 0 0 1 20 0 10 10 0 0 1 20 0c0 12-20 26-20 26z" fill="#ff0090" stroke="#fff9f0" stroke-width="2"/>
+            </svg>
           </div>
         </div>
       </div>
-      
-      <div class="countdown-container">
-        <p>Next note unlocks in:</p>
-        <h2 id="countdown-timer">00:00:00</h2>
+
+      <p class="click-hint" id="envelope-hint">♥ click to open</p>
+    </div>
+  </section>
+
+  <!-- ─── COUNTDOWN SECTION ─── -->
+  <section class="countdown-section">
+    <div class="accent ct-diamond-yellow"></div>
+    <div class="accent ct-circle-navy"></div>
+    <div class="accent ct-diamond-white"></div>
+
+    <p class="countdown-title">Next Note Unlocks In</p>
+
+    <div class="countdown-timer-wrap">
+      <div class="time-block">
+        <div class="time-box" id="timer-hours">--</div>
+        <span class="time-label">HRS</span>
+      </div>
+      <span class="colon">:</span>
+      <div class="time-block">
+        <div class="time-box" id="timer-minutes">--</div>
+        <span class="time-label">MIN</span>
+      </div>
+      <span class="colon">:</span>
+      <div class="time-block">
+        <div class="time-box" id="timer-seconds">--</div>
+        <span class="time-label">SEC</span>
       </div>
     </div>
+  </section>
 
-    <div class="archive-section">
-      <h3 class="archive-title">Unlocked Memories</h3>
-      <div class="archive-grid" id="archive-grid">
-        <!-- Archive cards will be injected here automatically -->
+  <!-- ─── CALENDAR ARCHIVE SECTION ─── -->
+  <section class="calendar-section">
+    <div class="accent cal-circle-pink"></div>
+    <div class="accent cal-diamond-yellow"></div>
+
+    <div class="calendar-inner">
+      <div class="calendar-header-block">
+        <span class="header-pill-yellow">unlocked notes</span>
+        <h2 class="calendar-heading">Every day, a new love note</h2>
+      </div>
+
+      <!-- Calendar Card -->
+      <div class="calendar-card">
+        <div class="calendar-month-nav">
+          <button id="prev-month-btn" aria-label="Previous month">‹</button>
+          <span id="calendar-month-title">August 2026</span>
+          <button id="next-month-btn" aria-label="Next month">›</button>
+        </div>
+
+        <div class="weekdays-grid">
+          <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+        </div>
+
+        <div class="days-grid" id="days-grid">
+          <!-- Populated dynamically by script.js -->
+        </div>
+
+        <div class="calendar-legend">
+          <div class="legend-item">
+            <div class="legend-box unlocked-box"></div>
+            <span>Note unlocked</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-box today-box"></div>
+            <span>Today</span>
+          </div>
+        </div>
       </div>
     </div>
+  </section>
 
+  <!-- ─── ARCHIVE MODAL / POPUP ─── -->
+  <div class="modal-backdrop" id="archive-modal">
+    <div class="modal-card">
+      <button class="modal-close" id="modal-close-btn" aria-label="Close modal">✕</button>
+      <p class="modal-pill" id="modal-day-pill">Note from Day X</p>
+      <p class="modal-message" id="modal-message-text">"Note content goes here"</p>
+      <p class="modal-author">— Anirudha ♥</p>
+    </div>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
