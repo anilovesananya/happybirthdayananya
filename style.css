@@ -97,13 +97,12 @@ html { scrollbar-width: none; }
 .highlight-yellow { color: #ffe600; font-style: italic; }
 .highlight-pink { color: #ff0090; }
 
-/* Envelope */
+/* Envelope Container */
 .envelope-container {
   position: relative;
   cursor: pointer;
   user-select: none;
-  width: min(390px, 90vw);
-  perspective: 800px;
+  width: min(390px, 92vw);
   z-index: 10;
   display: flex;
   flex-direction: column;
@@ -254,17 +253,16 @@ html { scrollbar-width: none; }
 /* Floating Action Button when open */
 .envelope-open .click-hint {
   position: fixed;
-  bottom: 2.5rem;
+  bottom: 4rem; 
   left: 50%;
   transform: translateX(-50%);
   margin-top: 0;
-  z-index: 999;
+  z-index: 9999;
   background: #ff0090;
   color: #fff9f0;
   border-color: #ff0090;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
 }
-
 /* ─── COUNTDOWN SECTION ─── */
 .countdown-section {
   background: #ff0090;
