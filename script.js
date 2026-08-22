@@ -1,6 +1,6 @@
 // ─── CONFIGURATION ───
 const START_DATE = new Date("2026-08-22T00:00:00+05:30"); // IST Start Date
-const WORKER_URL = "https://happybirthdayananya.anilovesananya.workers.dev"; // Your Cloudflare Worker URL
+const WORKER_URL = "https://notion-relay.anirudhavayadande.workers.dev";
 
 let unlockedNotes = {};
 
@@ -52,7 +52,7 @@ async function fetchNotes() {
   } catch (err) {
     console.error("Error fetching notes:", err);
     messageText.textContent = "Happy Birthday Ananya! ♥";
-    todayDayLabel.textContent = `Day 1`;
+    todayDayLabel.textContent = "Day 1";
   }
 }
 
