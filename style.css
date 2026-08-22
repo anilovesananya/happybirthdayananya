@@ -248,6 +248,21 @@ html { scrollbar-width: none; }
   display: inline-block;
   position: relative;
   z-index: 5;
+  transition: all 0.2s ease;
+}
+
+/* Floating Action Button when open */
+.envelope-open .click-hint {
+  position: fixed;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 0;
+  z-index: 999;
+  background: #ff0090;
+  color: #fff9f0;
+  border-color: #ff0090;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
 }
 
 /* ─── COUNTDOWN SECTION ─── */
