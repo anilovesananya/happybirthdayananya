@@ -81,7 +81,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (todayMsg && messageElement) {
       messageElement.textContent = todayMsg;
       if (todayDayLabel) {
-        todayDayLabel.textContent = `Note #${dayNum}`;
+        // Updated this line to just say "Day X" instead of "Note #X"
+        todayDayLabel.textContent = `Day ${dayNum}`;
       }
     } else if (messageElement) {
       messageElement.textContent = "No note available for today yet!";
@@ -168,7 +169,8 @@ function openNoteModal(note, dayNum) {
   const day = note.day || note.Day || dayNum;
   const msg = note.message || note.content || note.note || note.text || "No content found for this day.";
 
-  modalPill.textContent = `Note from Day ${day}`;
+  // Updated this line to just say "Day X" instead of "Note from Day X"
+  modalPill.textContent = `Day ${day}`;
   modalMessage.textContent = msg;
 
   modal.classList.add("active");
