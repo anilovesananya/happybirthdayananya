@@ -95,13 +95,15 @@ async function fetchData(messageElement, todayDayLabel) {
     };
 
     const todayMsg = getMessageText(data.todayNote) || getMessageText(data);
-    const dayNum = (data.todayNote && (data.todayNote.day || data.todayNote.Day)) || data.day || 1;
+    
+    // Grab the day from Notion and clean out the word "Day" so it doesn't double up
+    const rawDay = (data.todayNote && (data.todayNote.day || data.todayNote.Day)) || data.day || 1;
+    const cleanDay = String(rawDay).replace(/day\s*/i, "").trim();
 
     if (todayMsg && messageElement) {
       messageElement.textContent = todayMsg;
       if (todayDayLabel) {
-        // Updated text format here
-        todayDayLabel.textContent = `Day ${dayNum}`;
+        todayDayLabel.textContent = `Day ${cleanDay}`;
       }
     } else if (messageElement) {
       messageElement.textContent = "No note available for today yet!";
@@ -185,11 +187,12 @@ function openNoteModal(note, dayNum) {
 
   if (!modal || !modalPill || !modalMessage) return;
 
-  const day = note.day || note.Day || dayNum;
+  // Grab the day from Notion and clean out the word "Day" for the popup too
+  const rawDay = note.day || note.Day || dayNum;
+  const cleanDay = String(rawDay).replace(/day\s*/i, "").trim();
   const msg = note.message || note.content || note.note || note.text || "No content found for this day.";
 
-  // Updated text format here
-  modalPill.textContent = `Day ${day}`;
+  modalPill.textContent = `Day ${cleanDay}`;
   modalMessage.textContent = msg;
 
   modal.classList.add("active");
