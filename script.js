@@ -1,4 +1,4 @@
-const WORKER_URL = "https://notion-relay.anirudha.workers.dev";
+const WORKER_URL = "https://notion-relay.anirudhavayadande.workers.dev/";
 
 let appData = {
   todayNote: null,
