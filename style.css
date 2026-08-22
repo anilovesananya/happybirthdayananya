@@ -11,38 +11,54 @@
   padding: 0;
 }
 
+/* ─── ANIMATED MAGICAL BACKGROUND ─── */
 body {
   font-family: 'Nunito', sans-serif;
-  background-color: #0b0b24;
   color: #fff9f0;
   overflow-x: hidden;
+  background: linear-gradient(-45deg, #0b0b24, #1a0b2e, #0b1c3a, #1f0822);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* Scrollbar reset */
 ::-webkit-scrollbar { width: 0; height: 0; }
 html { scrollbar-width: none; }
 
-/* ─── ACCENTS & MEMPHIS BG WITH DEPTH ─── */
-.memphis-bg {
-  background-color: #0b0b24;
-  background-image:
-    radial-gradient(circle at 15% 30%, rgba(255, 0, 144, 0.18) 0%, transparent 50%),
-    radial-gradient(circle at 85% 70%, rgba(26, 26, 255, 0.22) 0%, transparent 50%),
-    radial-gradient(circle at 50% 100%, rgba(255, 230, 0, 0.1) 0%, transparent 50%),
-    radial-gradient(rgba(255, 249, 240, 0.08) 1.5px, transparent 1.5px);
-  background-size: 100% 100%, 100% 100%, 100% 100%, 28px 28px;
-}
-
+/* ─── FLOATING FLOWER ACCENTS ─── */
 .accent {
   position: absolute;
   pointer-events: none;
+  opacity: 0.6;
+  filter: drop-shadow(0 0 10px currentColor);
 }
-.circle-yellow { top: 2.5rem; left: 2.5rem; width: 5rem; height: 5rem; border-radius: 50%; border: 4px solid #ffe600; opacity: 0.4; }
-.diamond-pink { top: 6rem; left: 8rem; width: 1.5rem; height: 1.5rem; background: #ff0090; transform: rotate(45deg); opacity: 0.6; }
-.circle-blue { bottom: 5rem; right: 4rem; width: 7rem; height: 7rem; border-radius: 50%; border: 4px solid #1a1aff; opacity: 0.3; }
-.diamond-coral { bottom: 10rem; right: 10rem; width: 2rem; height: 2rem; background: #ff5c3a; transform: rotate(12deg); opacity: 0.5; }
-.pill-mint { top: 33%; right: 2rem; width: 1rem; height: 4rem; background: #00e5a0; opacity: 0.4; border-radius: 9999px; }
-.pill-yellow { top: 50%; left: 2rem; width: 4rem; height: 1rem; background: #ffe600; opacity: 0.3; border-radius: 9999px; }
+.flower-pink { color: #ff0090; }
+.flower-yellow { color: #ffe600; }
+.flower-blue { color: #5c5cff; }
+.flower-white { color: #ffffff; }
+
+@keyframes floatSoft {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(8deg); }
+}
+@keyframes floatMedium {
+  0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+  50% { transform: translateY(-30px) rotate(-5deg) scale(1.05); }
+}
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(15deg); }
+}
+
+.float-1 { animation: floatSoft 6s ease-in-out infinite; }
+.float-2 { animation: floatMedium 8s ease-in-out infinite; }
+.float-3 { animation: floatSlow 10s ease-in-out infinite; }
 
 /* ─── HERO ENVELOPE SECTION ─── */
 .envelope-section {
@@ -57,16 +73,18 @@ html { scrollbar-width: none; }
 }
 
 .header-pill {
-  margin-bottom: 0.5rem;
-  padding: 0.25rem 1rem;
+  margin-bottom: 1rem;
+  padding: 0.35rem 1.2rem;
   border-radius: 9999px;
   font-size: 0.75rem;
   font-family: 'JetBrains Mono', monospace;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  background: #ff0090;
-  color: #fff9f0;
+  background: rgba(255, 0, 144, 0.2);
+  color: #ff99d6;
+  border: 1px solid rgba(255, 0, 144, 0.4);
+  backdrop-filter: blur(4px);
 }
 
 .main-title {
@@ -77,6 +95,7 @@ html { scrollbar-width: none; }
   font-size: clamp(2.2rem, 5vw, 3.8rem);
   font-weight: 900;
   color: #fff9f0;
+  text-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
 .highlight-yellow { color: #ffe600; font-style: italic; }
@@ -100,7 +119,7 @@ html { scrollbar-width: none; }
   background: #fff9f0;
   color: #0d0d2b;
   border-radius: 1rem;
-  box-shadow: 0 20px 35px rgba(0,0,0,0.5);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
   padding: 1.5rem 1.5rem;
   text-align: center;
   opacity: 0;
@@ -109,7 +128,7 @@ html { scrollbar-width: none; }
   flex-direction: column;
   justify-content: flex-start;
   overflow-y: auto;
-  transition: transform 0.5s 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s 0.3s ease;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
 }
 
 .envelope-open .note-slide {
@@ -146,10 +165,11 @@ html { scrollbar-width: none; }
   position: relative;
   border-radius: 1rem;
   overflow: hidden;
-  background: #1a1aff;
-  border: 3px solid #ffe600;
+  background: rgba(26, 26, 255, 0.9);
+  border: 2px solid rgba(255, 230, 0, 0.8);
   padding-top: 70%;
-  box-shadow: 8px 8px 0px #ffe600;
+  box-shadow: 0 15px 40px rgba(255, 230, 0, 0.25); /* Replaced rigid shadow with soft glow */
+  backdrop-filter: blur(8px);
 }
 
 .env-back {
@@ -165,7 +185,7 @@ html { scrollbar-width: none; }
   bottom: 0; left: 0; right: 0;
   height: 55%;
   background: transparent;
-  border-left: 3px solid rgba(255,230,0,0.3);
+  border-left: 2px solid rgba(255,230,0,0.4);
   clip-path: polygon(0 100%, 50% 0%, 0 0);
 }
 
@@ -195,7 +215,7 @@ html { scrollbar-width: none; }
   clip-path: polygon(0 0, 100% 0, 50% 100%);
   transform-origin: top center;
   transform-style: preserve-3d;
-  border-bottom: 2px solid rgba(255,230,0,0.4);
+  border-bottom: 2px solid rgba(255,230,0,0.6);
   z-index: 20;
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -210,20 +230,23 @@ html { scrollbar-width: none; }
   left: 50%;
   top: 1.5rem;
   transform: translateX(-50%);
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
 }
 
 .click-hint {
   text-align: center;
-  margin-top: 1.25rem;
-  font-size: 0.9rem;
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  color: #ffe600;
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: rgba(255, 230, 0, 0.8);
+  text-transform: uppercase;
 }
 
 /* ─── COUNTDOWN SECTION ─── */
 .countdown-section {
-  background: #ff0090;
+  background: rgba(255, 0, 144, 0.1);
+  backdrop-filter: blur(10px);
   min-height: 45vh;
   display: flex;
   flex-direction: column;
@@ -232,11 +255,9 @@ html { scrollbar-width: none; }
   position: relative;
   overflow: hidden;
   padding: 5rem 1.5rem;
+  border-top: 1px solid rgba(255,0,144,0.2);
+  border-bottom: 1px solid rgba(255,0,144,0.2);
 }
-
-.ct-diamond-yellow { top: 1.5rem; left: 1.5rem; width: 3rem; height: 3rem; background: #ffe600; transform: rotate(45deg); opacity: 0.6; }
-.ct-circle-navy { bottom: 1.5rem; right: 1.5rem; width: 4rem; height: 4rem; border-radius: 50%; border: 4px solid #0d0d2b; opacity: 0.4; }
-.ct-diamond-white { top: 50%; right: 3rem; width: 1rem; height: 1rem; background: #fff9f0; transform: rotate(12deg); opacity: 0.5; }
 
 .countdown-title {
   font-size: 0.85rem;
@@ -244,7 +265,7 @@ html { scrollbar-width: none; }
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #0d0d2b;
+  color: #ff99d6;
   margin-bottom: 1.5rem;
 }
 
@@ -262,54 +283,49 @@ html { scrollbar-width: none; }
 }
 
 .time-box {
-  background: #0d0d2b;
+  background: rgba(13, 13, 43, 0.6);
   color: #ffe600;
   width: clamp(72px, 18vw, 110px);
   height: clamp(72px, 18vw, 110px);
   font-size: clamp(2rem, 7vw, 3.5rem);
   font-weight: 700;
   border-radius: 0.75rem;
-  border: 3px solid #ffe600;
-  box-shadow: 4px 4px 0 #ffe600;
+  border: 1px solid rgba(255, 230, 0, 0.4);
+  box-shadow: 0 10px 30px rgba(255, 230, 0, 0.15); /* Soft glow */
   display: flex;
   align-items: center;
   justify-content: center;
+  backdrop-filter: blur(4px);
 }
 
 .time-label {
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.15em;
-  color: #0d0d2b;
+  color: #ff99d6;
 }
 
 .colon {
   font-weight: 700;
   padding-bottom: 1.5rem;
-  color: #0d0d2b;
+  color: #ff99d6;
   font-size: clamp(2rem, 7vw, 3.5rem);
 }
 
 /* ─── CALENDAR ARCHIVE SECTION ─── */
 .calendar-section {
-  background-color: #0b0b24;
-  background-image:
-    radial-gradient(circle at 50% 0%, rgba(26, 26, 255, 0.15) 0%, transparent 60%),
-    radial-gradient(rgba(255, 249, 240, 0.08) 1.5px, transparent 1.5px);
-  background-size: 100% 100%, 28px 28px;
   min-height: 80vh;
   position: relative;
   overflow: hidden;
   padding: 6rem 1.5rem;
 }
 
-.cal-circle-pink { top: 2rem; right: 2rem; width: 6rem; height: 6rem; border-radius: 50%; border: 4px solid #ff0090; opacity: 0.25; }
-.cal-diamond-yellow { bottom: 3rem; left: 2rem; width: 2.5rem; height: 2.5rem; background: #ffe600; transform: rotate(45deg); opacity: 0.3; }
-
 .calendar-inner {
   max-width: 650px;
   margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
 .calendar-header-block {
@@ -318,15 +334,16 @@ html { scrollbar-width: none; }
 }
 
 .header-pill-yellow {
-  padding: 0.25rem 1rem;
+  padding: 0.35rem 1.2rem;
   border-radius: 9999px;
   font-size: 0.75rem;
   font-family: 'JetBrains Mono', monospace;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  background: #ffe600;
-  color: #0d0d2b;
+  background: rgba(255, 230, 0, 0.15);
+  color: #ffe600;
+  border: 1px solid rgba(255, 230, 0, 0.3);
 }
 
 .calendar-heading {
@@ -341,9 +358,10 @@ html { scrollbar-width: none; }
 .calendar-card {
   border-radius: 1rem;
   overflow: hidden;
-  background: #13134a;
-  border: 3px solid #1a1aff;
-  box-shadow: 8px 8px 0 #1a1aff;
+  background: rgba(19, 19, 74, 0.4);
+  border: 1px solid rgba(26, 26, 255, 0.5);
+  box-shadow: 0 20px 50px rgba(26, 26, 255, 0.2); /* Soft ethereal shadow */
+  backdrop-filter: blur(12px);
 }
 
 .calendar-month-nav {
@@ -351,7 +369,7 @@ html { scrollbar-width: none; }
   align-items: center;
   justify-content: space-between;
   padding: 1rem 1.5rem;
-  border-bottom: 2px solid #1a1aff;
+  border-bottom: 1px solid rgba(26, 26, 255, 0.5);
 }
 
 .calendar-month-nav button {
@@ -363,15 +381,16 @@ html { scrollbar-width: none; }
   justify-content: center;
   font-weight: 700;
   font-size: 1.2rem;
-  background: #ff0090;
+  background: rgba(255, 0, 144, 0.8);
   color: #fff9f0;
   border: none;
   cursor: pointer;
-  transition: transform 0.15s ease;
+  transition: transform 0.2s ease, background 0.2s ease;
 }
 
 .calendar-month-nav button:hover {
   transform: scale(1.1);
+  background: #ff0090;
 }
 
 #calendar-month-title {
@@ -379,6 +398,7 @@ html { scrollbar-width: none; }
   font-size: 1.25rem;
   font-weight: 700;
   color: #fff9f0;
+  letter-spacing: 0.05em;
 }
 
 .weekdays-grid {
@@ -409,8 +429,8 @@ html { scrollbar-width: none; }
   border-radius: 8px;
   font-weight: 700;
   font-size: 0.9rem;
-  color: rgba(255,249,240,0.3);
-  transition: transform 0.15s ease, background-color 0.15s ease;
+  color: rgba(255,249,240,0.4);
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .calendar-day.empty {
@@ -419,18 +439,21 @@ html { scrollbar-width: none; }
 }
 
 .calendar-day.unlocked {
-  background: #ff0090;
+  background: rgba(255, 0, 144, 0.7);
   color: #fff9f0;
   cursor: pointer;
+  border: 1px solid rgba(255,0,144,0.4);
 }
 
 .calendar-day.unlocked:hover {
-  background: #ff33a8;
-  transform: scale(1.08);
+  background: #ff0090;
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(255, 0, 144, 0.4);
 }
 
 .calendar-day.today {
-  border: 2px solid #ffe600;
+  border: 1px solid #ffe600;
+  color: #ffe600;
 }
 
 .calendar-legend {
@@ -438,8 +461,8 @@ html { scrollbar-width: none; }
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
-  padding: 0.75rem 1.5rem;
-  border-top: 2px solid #1a1aff;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid rgba(26, 26, 255, 0.5);
 }
 
 .legend-item {
@@ -448,23 +471,23 @@ html { scrollbar-width: none; }
   gap: 0.5rem;
   font-size: 0.75rem;
   font-weight: 700;
-  color: rgba(255,249,240,0.6);
+  color: rgba(255,249,240,0.7);
 }
 
 .legend-box {
   width: 1rem;
   height: 1rem;
-  border-radius: 2px;
+  border-radius: 4px;
 }
-.unlocked-box { background: #ff0090; }
-.today-box { border: 2px solid #ffe600; background: transparent; }
+.unlocked-box { background: rgba(255, 0, 144, 0.7); }
+.today-box { border: 1px solid #ffe600; background: transparent; }
 
 /* ─── MODAL / POPUP ─── */
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(13, 13, 43, 0.75);
-  backdrop-filter: blur(4px);
+  background: rgba(11, 11, 36, 0.6);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -472,7 +495,7 @@ html { scrollbar-width: none; }
   z-index: 100;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.3s ease;
 }
 
 .modal-backdrop.active {
@@ -486,42 +509,43 @@ html { scrollbar-width: none; }
   max-width: 480px;
   background: #fff9f0;
   color: #0d0d2b;
-  border: 3px solid #ff0090;
-  box-shadow: 8px 8px 0px #ff0090;
   border-radius: 1.25rem;
-  padding: 2.5rem 2rem 2rem 2rem;
+  padding: 3rem 2rem 2.5rem 2rem;
   text-align: center;
-  transform: scale(0.92);
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: scale(0.95) translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   max-height: 80vh;
   overflow-y: auto;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 0 4px rgba(255, 0, 144, 0.2);
 }
 
 .modal-backdrop.active .modal-card {
-  transform: scale(1);
+  transform: scale(1) translateY(0);
 }
 
 .modal-close {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: #ff0090;
-  color: #fff9f0;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: rgba(255, 0, 144, 0.1);
+  color: #ff0090;
   border: none;
   border-radius: 50%;
-  width: 2rem;
-  height: 2rem;
-  font-size: 0.9rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.15s ease;
+  transition: all 0.2s ease;
 }
 
 .modal-close:hover {
   transform: scale(1.1);
+  background: #ff0090;
+  color: #fff9f0;
 }
 
 .modal-pill {
@@ -536,10 +560,10 @@ html { scrollbar-width: none; }
 
 .modal-message {
   font-family: 'MyHandwriting', 'Fraunces', serif;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   line-height: 1.5;
   color: #0d0d2b;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .modal-author {
