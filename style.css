@@ -137,13 +137,12 @@ html {
   
   /* ─── THE FIREFOX FIX: BOX MODEL TRICK ─── */
   border-radius: 1.25rem;
-  /* We convert the outer padding into a thick white border. 
-     Scrollbars are forced to draw INSIDE borders, perfectly saving the corners! */
   border-top: 1.5rem solid #fff9f0;
   border-bottom: 1.5rem solid #fff9f0;
-  border-left: 1.25rem solid #fff9f0;
-  border-right: 1.25rem solid #fff9f0;
-  padding: 0.25rem 0.25rem;
+  /* Thinner side borders push the text and scrollbar closer to the edge */
+  border-left: 0.5rem solid #fff9f0;
+  border-right: 0.5rem solid #fff9f0;
+  padding: 0.25rem 0.5rem;
   box-shadow: 0 15px 40px rgba(0,0,0,0.7);
 
   text-align: center;
@@ -202,8 +201,10 @@ html {
 
 .note-author {
   margin-top: 0.75rem;
-  font-size: 0.85rem;
-  font-weight: 700;
+  /* Changed to handwriting font */
+  font-family: 'MyHandwriting', 'Fraunces', serif; 
+  font-size: 1.35rem; 
+  font-weight: normal;
   color: #1a1aff;
 }
 
@@ -623,7 +624,9 @@ html {
 }
 
 .modal-author {
-  font-size: 0.9rem;
-  font-weight: 800;
+  /* Changed to handwriting font */
+  font-family: 'MyHandwriting', 'Fraunces', serif;
+  font-size: 1.35rem;
+  font-weight: normal;
   color: #1a1aff;
 }
