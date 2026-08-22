@@ -1,6 +1,4 @@
-// Paste your exact live Cloudflare Worker URL here
-const WORKER_URL = "const WORKER_URL = "https://notion-relay.anirudha.workers.dev";
-"; 
+const WORKER_URL = "https://notion-relay.anirudha.workers.dev";
 
 let appData = {
   todayNote: null,
@@ -62,28 +60,40 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Start IST Countdown
   startISTCountdown();
 
-  // Fetch Live Notion Data
+  // Fetch Live Data
   try {
     const response = await fetch(WORKER_URL);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
     const data = await response.json();
+    console.log("Worker Response Data:", data);
     appData = data;
 
-    // Set today's note
-    if (data.todayNote && data.todayNote.message) {
-      messageElement.textContent = data.todayNote.message;
-      if (todayDayLabel && data.todayNote.day) {
-        todayDayLabel.textContent = `Note #${data.todayNote.day}`;
+    const getMessageText = (noteObj) => {
+      if (!noteObj) return null;
+      return noteObj.message || noteObj.content || noteObj.note || noteObj.text || (typeof noteObj === 'string' ? noteObj : null);
+    };
+
+    const todayMsg = getMessageText(data.todayNote) || getMessageText(data);
+    const dayNum = (data.todayNote && (data.todayNote.day || data.todayNote.Day)) || data.day || 1;
+
+    if (todayMsg && messageElement) {
+      messageElement.textContent = todayMsg;
+      if (todayDayLabel) {
+        todayDayLabel.textContent = `Note #${dayNum}`;
       }
-    } else {
+    } else if (messageElement) {
       messageElement.textContent = "No note available for today yet!";
     }
 
-    // Render initial calendar with live data
     renderCalendar(currentYear, currentMonth);
 
   } catch (error) {
     console.error("Error fetching Notion notes:", error);
-    messageElement.textContent = "Oops! Couldn't load today's note.";
+    if (messageElement) {
+      messageElement.textContent = "Oops! Couldn't load today's note.";
+    }
     renderCalendar(currentYear, currentMonth);
   }
 });
@@ -102,32 +112,28 @@ function renderCalendar(year, month) {
   const firstDayIndex = new Date(year, month, 1).getDay();
   const totalDays = new Date(year, month + 1, 0).getDate();
 
-  // Get current date in IST
   const istNow = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
   const isThisMonth = istNow.getFullYear() === year && istNow.getMonth() === month;
   const todayDayNum = istNow.getDate();
 
-  // Empty padding cells for start of month
   for (let i = 0; i < firstDayIndex; i++) {
     const emptyCell = document.createElement("div");
     emptyCell.className = "calendar-day empty";
     daysGrid.appendChild(emptyCell);
   }
 
-  // Create dictionary of unlocked notes by date (YYYY-MM-DD)
   const unlockedMap = {};
   if (appData.archive && Array.isArray(appData.archive)) {
     appData.archive.forEach((item) => {
-      if (item.date) {
-        unlockedMap[item.date] = item;
-      }
+      const dateKey = item.date || item.Date;
+      if (dateKey) unlockedMap[dateKey] = item;
     });
   }
-  if (appData.todayNote && appData.todayNote.date) {
-    unlockedMap[appData.todayNote.date] = appData.todayNote;
+  if (appData.todayNote) {
+    const todayKey = appData.todayNote.date || appData.todayNote.Date || appData.todayDateStr;
+    if (todayKey) unlockedMap[todayKey] = appData.todayNote;
   }
 
-  // Render day cells
   for (let d = 1; d <= totalDays; d++) {
     const dayCell = document.createElement("div");
     dayCell.className = "calendar-day";
@@ -151,7 +157,7 @@ function renderCalendar(year, month) {
   }
 }
 
-// ─── POPUP MODAL (ITEM 1 ON MASTER SHEET) ───
+// ─── POPUP MODAL ───
 function openNoteModal(note, dayNum) {
   const modal = document.getElementById("archive-modal");
   const modalPill = document.getElementById("modal-day-pill");
@@ -159,8 +165,11 @@ function openNoteModal(note, dayNum) {
 
   if (!modal || !modalPill || !modalMessage) return;
 
-  modalPill.textContent = note.day ? `Note from Day ${note.day}` : `Note from Day ${dayNum}`;
-  modalMessage.textContent = note.message || "No content found for this day.";
+  const day = note.day || note.Day || dayNum;
+  const msg = note.message || note.content || note.note || note.text || "No content found for this day.";
+
+  modalPill.textContent = `Note from Day ${day}`;
+  modalMessage.textContent = msg;
 
   modal.classList.add("active");
 }
