@@ -131,7 +131,6 @@ html {
   width: calc(100% - 24px);
   min-height: 260px;
   height: auto;
-  /* Reduced height to perfectly balance the bottom overhang */
   max-height: 380px; 
   background: #fff9f0;
   color: #0d0d2b;
@@ -144,31 +143,35 @@ html {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  overflow-x: hidden; /* Added to enforce rounded corners */
   overflow-y: auto;
   pointer-events: none;
   transition: transform 0.5s 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s 0.2s ease;
   
   /* Firefox Scrollbar for the Note */
-  scrollbar-color: #ffe600 #fff9f0;
+  scrollbar-color: #ffe600 transparent;
   scrollbar-width: thin;
 }
 
-/* ─── CUSTOM SCROLLBAR FOR INSIDE THE NOTE ─── */
+/* ─── INSET CUSTOM SCROLLBAR FOR INSIDE THE NOTE ─── */
 .note-slide::-webkit-scrollbar {
-  width: 10px;
+  width: 16px; /* Wider track to allow for border padding */
 }
 .note-slide::-webkit-scrollbar-track {
-  background: #fff9f0;
-  border-radius: 1.25rem;
-  margin: 1.25rem 0; /* Keeps track away from the rounded corners */
+  background: transparent; 
+  /* Leaves 1.5rem at top and bottom so scrollbar never hits the rounded corners! */
+  margin: 1.5rem 0; 
 }
 .note-slide::-webkit-scrollbar-thumb {
   background-color: #ffe600;
-  border-radius: 10px;
-  border: 3px solid #fff9f0; /* Creates a clean pill effect */
+  border-radius: 100px;
+  /* Thick white border matches the note background. 
+     This acts as a transparent "cushion", pushing the yellow inward! */
+  border: 5px solid #fff9f0; 
+  background-clip: padding-box;
 }
 
-/* Note Open State - Tweaked translateY to perfectly center the card symmetrically */
+/* Note Open State */
 .envelope-open .note-slide {
   transform: translateX(-50%) translateY(-65px);
   opacity: 1;
