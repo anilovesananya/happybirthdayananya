@@ -134,8 +134,13 @@ html {
   max-height: 380px; 
   background: #fff9f0;
   color: #0d0d2b;
+  
+  /* THE FIX: Forcing rounded corners to override the scrollbar bleed */
   border-radius: 1.25rem;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+  -webkit-clip-path: inset(0 round 1.25rem);
+  clip-path: inset(0 round 1.25rem);
+  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.6));
+
   padding: 1.75rem 1.5rem;
   text-align: center;
   opacity: 0;
