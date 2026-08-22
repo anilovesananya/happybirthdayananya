@@ -23,20 +23,16 @@ function initApp() {
       if (envelopeHint) {
         envelopeHint.textContent = isOpen ? "✕ click to close" : "♥ click to open";
       }
-    });
-  }
-
-  // 2. Calendar month buttons
-  const prevBtn = document.getElementById("prev-month-btn");
-  if (prevBtn) {
-    prevBtn.addEventListener("click", () => {
-      if (currentMonth === 0) {
-        currentMonth = 11;
-        currentYear -= 1;
-      } else {
-        currentMonth -= 1;
+      
+      // Forces the scrollbar to the top immediately when opened
+      if (isOpen) {
+        const noteCard = document.querySelector(".note-slide");
+        if (noteCard) {
+          setTimeout(() => {
+            noteCard.scrollTop = 0;
+          }, 10);
+        }
       }
-      renderCalendar(currentYear, currentMonth);
     });
   }
 
