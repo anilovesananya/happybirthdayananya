@@ -36,10 +36,8 @@ body {
   border: 2px solid #0c0b22;
 }
 html {
-  background-color: #0c0b22;
   scrollbar-color: #ffe600 #0c0b22;
   scrollbar-width: thin;
-  overflow-x: hidden;
 }
 
 /* ─── ACCENTS ─── */
@@ -67,8 +65,9 @@ html {
   align-items: center;
   justify-content: center;
   position: relative;
-  /* Removed 'overflow: hidden' to let smaller screens scroll without slicing the pillbox */
-  padding: 5rem 1.5rem;
+  overflow: hidden; /* Restored to prevent background tearing */
+  /* Added more padding at the bottom (8rem) so the pillbox never gets cut off */
+  padding: 5rem 1.5rem 8rem 1.5rem; 
 }
 
 /* Pink Pill with Yellow Offset Shadow */
@@ -94,7 +93,7 @@ html {
   position: relative;
   z-index: 5;
   text-align: center;
-  margin: 0 auto 3.5rem auto; /* Lowered bottom margin so the pillbox stays on screen */
+  margin-bottom: 4.5rem; /* Adjusted safely to clear the note */
   line-height: 1.25;
   font-family: 'Fraunces', serif;
   font-size: clamp(2rem, 5.5vw, 3.4rem);
@@ -107,9 +106,8 @@ html {
   border: 2px solid rgba(255, 255, 255, 0.18);
   box-shadow: 8px 8px 0px #ff0090;
   
-  /* Bulletproof centering */
-  width: 92%;
-  max-width: 390px;
+  /* Restored to your exact original code */
+  max-width: 90vw;
 }
 
 .highlight-yellow { color: #ffe600; font-style: italic; }
@@ -120,15 +118,12 @@ html {
   position: relative;
   cursor: pointer;
   user-select: none;
+  /* Restored to your exact original code */
+  width: min(390px, 92vw);
   z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
-  
-  /* Bulletproof centering & proper size */
-  width: 92%;
-  max-width: 390px;
-  margin: 0 auto;
 }
 
 /* Note Slide */
@@ -149,15 +144,14 @@ html {
   border-bottom: 1.5rem solid #fff9f0;
   border-left: 0.5rem solid #fff9f0;
   border-right: 0.5rem solid #fff9f0;
-  padding: 0.5rem;
+  /* Restored to your exact original padding */
+  padding: 0.25rem 0.5rem;
   
   box-shadow: inset 0 0 0 2px #fff9f0, 0 15px 40px rgba(0,0,0,0.7);
 
   text-align: center;
   opacity: 0;
   z-index: 25;
-  
-  /* Reverted to flex to keep contents perfectly aligned */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -168,14 +162,6 @@ html {
   
   scrollbar-color: #ffe600 transparent;
   scrollbar-width: thin;
-}
-
-/* The Safari-Killer: An invisible block that forces scroll space at the bottom */
-.note-slide::after {
-  content: "";
-  display: block;
-  min-height: 3rem; 
-  flex-shrink: 0;
 }
 
 /* Note Open State - Symmetrical translation */
@@ -206,6 +192,8 @@ html {
 
 .note-author {
   margin-top: 0.75rem;
+  /* ADDED: This thick bottom margin forces the scroll area down, fixing the text cut-off safely */
+  margin-bottom: 3rem; 
   font-family: 'MyHandwriting', 'Fraunces', serif; 
   font-size: 1.35rem; 
   font-weight: normal;
