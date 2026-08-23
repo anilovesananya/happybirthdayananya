@@ -248,7 +248,8 @@ function startISTCountdown() {
 
 // ─── RAINING HEARTS ANIMATION ───
 function createHeartShower() {
-  const colors = ['#ff0090', '#ffe600']; // Hot Pink and Yellow theme colors
+  // Swapped to pure, unapologetic red!
+  const colors = ['#ff0000']; 
   
   for (let i = 0; i < 35; i++) {
     // Stagger the falling hearts so they don't drop all at once
@@ -257,7 +258,7 @@ function createHeartShower() {
       heart.className = 'falling-heart';
       heart.textContent = '♥';
       
-      // Randomize color, horizontal position, size, and falling speed
+      // Randomize horizontal position, size, and falling speed
       heart.style.color = colors[Math.floor(Math.random() * colors.length)];
       heart.style.left = Math.random() * 100 + 'vw';
       heart.style.fontSize = (Math.random() * 1.2 + 1) + 'rem';
@@ -265,7 +266,7 @@ function createHeartShower() {
       
       document.body.appendChild(heart);
       
-      // Automatically clean up the heart from the DOM after 5 seconds to keep performance smooth
+      // Automatically clean up the heart from the DOM after 5 seconds
       setTimeout(() => {
         heart.remove();
       }, 5000);
