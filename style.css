@@ -36,8 +36,10 @@ body {
   border: 2px solid #0c0b22;
 }
 html {
+  background-color: #0c0b22; /* Add this to cover the white gap */
   scrollbar-color: #ffe600 #0c0b22;
   scrollbar-width: thin;
+  overflow-x: hidden; /* Good practice to ensure no horizontal scrolling */
 }
 
 /* ─── ACCENTS ─── */
@@ -65,9 +67,8 @@ html {
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: hidden; /* Restored to prevent background tearing */
-  /* Added more padding at the bottom (8rem) so the pillbox never gets cut off */
-  padding: 5rem 1.5rem 8rem 1.5rem; 
+  overflow: hidden;
+  padding: 5rem 1.5rem;
 }
 
 /* Pink Pill with Yellow Offset Shadow */
@@ -93,7 +94,7 @@ html {
   position: relative;
   z-index: 5;
   text-align: center;
-  margin-bottom: 4.5rem; /* Adjusted safely to clear the note */
+  margin-bottom: 2.75rem;
   line-height: 1.25;
   font-family: 'Fraunces', serif;
   font-size: clamp(2rem, 5.5vw, 3.4rem);
@@ -105,8 +106,6 @@ html {
   border-radius: 1.25rem;
   border: 2px solid rgba(255, 255, 255, 0.18);
   box-shadow: 8px 8px 0px #ff0090;
-  
-  /* Restored to your exact original code */
   max-width: 90vw;
 }
 
@@ -118,7 +117,6 @@ html {
   position: relative;
   cursor: pointer;
   user-select: none;
-  /* Restored to your exact original code */
   width: min(390px, 92vw);
   z-index: 10;
   display: flex;
@@ -144,9 +142,9 @@ html {
   border-bottom: 1.5rem solid #fff9f0;
   border-left: 0.5rem solid #fff9f0;
   border-right: 0.5rem solid #fff9f0;
-  /* Restored to your exact original padding */
   padding: 0.25rem 0.5rem;
   
+  /* Adding an inset shadow acts as a seamless seal over Android's hairline render glitch */
   box-shadow: inset 0 0 0 2px #fff9f0, 0 15px 40px rgba(0,0,0,0.7);
 
   text-align: center;
@@ -160,6 +158,7 @@ html {
   pointer-events: none;
   transition: transform 0.5s 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s 0.2s ease;
   
+  /* Firefox Scrollbar Settings */
   scrollbar-color: #ffe600 transparent;
   scrollbar-width: thin;
 }
@@ -192,8 +191,6 @@ html {
 
 .note-author {
   margin-top: 0.75rem;
-  /* ADDED: This thick bottom margin forces the scroll area down, fixing the text cut-off safely */
-  margin-bottom: 3rem; 
   font-family: 'MyHandwriting', 'Fraunces', serif; 
   font-size: 1.35rem; 
   font-weight: normal;
@@ -408,15 +405,17 @@ html {
   color: #fff9f0;
   line-height: 1.25;
 
+  /* Matches the hero box from the screenshot perfectly */
   background: #0d0d2b;
   padding: 1.5rem 2.2rem;
   border-radius: 1.25rem;
   border: 2px solid rgba(255, 255, 255, 0.18);
   box-shadow: 8px 8px 0px #ff0090;
   
+  /* Forces the box to be on a new line below the pill */
   display: block;
   width: fit-content;
-  margin: 1.5rem auto 0; 
+  margin: 1.5rem auto 0; /* 1.5rem gap below the pill, auto centers it */
   max-width: 90vw;
 }
 
@@ -569,6 +568,7 @@ html {
   background: #fff9f0;
   color: #0d0d2b;
   
+  /* Converted to identical inset-border logic to fix scrollbars */
   border-radius: 1.25rem;
   border-top: 1.5rem solid #fff9f0;
   border-bottom: 1.5rem solid #fff9f0;
@@ -576,6 +576,7 @@ html {
   border-right: 0.5rem solid #fff9f0;
   padding: 1rem 1.5rem 0.5rem 1.5rem;
   
+  /* Includes internal patch for mobile lines + the outer pink stroke and shadow */
   box-shadow: inset 0 0 0 2px #fff9f0, 0 0 0 3px #ff0090, 8px 8px 0px #ff0090;
 
   text-align: center;
@@ -656,15 +657,15 @@ html {
   background-color: #ffe600;
   border-radius: 10px;
 }
-
 /* ─── RAINING HEARTS ANIMATION ─── */
 .falling-heart {
   position: fixed;
   top: -10vh;
   z-index: 1000;
-  pointer-events: none; 
+  pointer-events: none; /* Prevents hearts from blocking clicks */
   user-select: none;
   animation: fall linear forwards;
+  /* Adds a slight brutalist shadow to match the theme */
   text-shadow: 2px 2px 0px #0d0d2b; 
 }
 
