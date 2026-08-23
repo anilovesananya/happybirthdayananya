@@ -17,27 +17,11 @@ body {
   color: #fff9f0;
   overflow-x: hidden;
   
-  /* 1. MOBILE DEFAULT: Keeps hearts original small size, repeats normally */
+  /* 100% reverted to your exact original background code */
   background-image: url('bg-pattern.png');
   background-repeat: repeat;
   background-position: center top;
   background-size: 420px auto; 
-}
-
-/* 2. DESKTOP FIX: Only applies to wide screens to hide the vertical seam */
-@media (min-width: 600px) {
-  body {
-    background-repeat: no-repeat;
-    background-size: cover; 
-    background-attachment: fixed; /* Parallax effect */
-  }
-}
-
-/* 3. iPAD/TABLET FIX: Prevents background jitter on large touch screens */
-@media (hover: none) and (pointer: coarse) {
-  body {
-    background-attachment: scroll; 
-  }
 }
 
 /* ─── GLOBAL SCROLLBAR (For the main page) ─── */
@@ -180,6 +164,14 @@ html {
   
   scrollbar-color: #ffe600 transparent;
   scrollbar-width: thin;
+}
+
+/* ULTIMATE SAFARI CUT-OFF FIX */
+.note-slide::after {
+  content: "\00a0"; 
+  display: block;
+  height: 2rem; 
+  pointer-events: none;
 }
 
 /* Note Open State - Symmetrical translation */
