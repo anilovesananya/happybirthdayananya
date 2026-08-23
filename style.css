@@ -82,14 +82,14 @@ html {
   color: #fff9f0;
   border: 2px solid #0d0d2b;
   box-shadow: 4px 4px 0px #ffe600;
-  display: inline-block;  /* 👈 prevents full‑width on mobile */
+  display: inline-block; /* prevents full-width stretch on mobile */
 }
 
 .main-title {
   position: relative;
   z-index: 5;
   text-align: center;
-  margin-bottom: 5.5rem;
+  margin: 0 auto 5.5rem auto; /* classic centering, bottom margin unchanged */
   line-height: 1.25;
   font-family: 'Fraunces', serif;
   font-size: clamp(2rem, 5.5vw, 3.4rem);
@@ -101,7 +101,7 @@ html {
   border: 2px solid rgba(255, 255, 255, 0.18);
   box-shadow: 8px 8px 0px #ff0090;
   max-width: 90vw;
-  width: fit-content;      /* 👈 shrinks to text, parent flex centers it */
+  width: fit-content;     /* shrinks to fit the text */
 }
 
 .highlight-yellow { color: #ffe600; font-style: italic; }
@@ -111,12 +111,13 @@ html {
   position: relative;
   cursor: pointer;
   user-select: none;
-  width: min(390px, 92vw);
+  width: 100%;            /* respects parent padding */
+  max-width: 390px;       /* stops it getting too wide on desktop */
+  margin: 0 auto;         /* centers it perfectly */
   z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* No auto margins – parent flex centers it perfectly */
 }
 
 .note-slide {
@@ -379,7 +380,7 @@ html {
   background: #ffe600;
   color: #0d0d2b;
   box-shadow: 0 4px 15px rgba(255, 230, 0, 0.4);
-  display: inline-block; /* 👈 ensures it doesn't stretch */
+  display: inline-block;
 }
 
 .calendar-heading {
@@ -405,7 +406,6 @@ html {
   background: #13134a;
   border: 3px solid #1a1aff;
   box-shadow: 8px 8px 0 #1a1aff;
-  /* Centered because its parent .calendar-inner has margin: 0 auto */
 }
 
 .calendar-month-nav {
