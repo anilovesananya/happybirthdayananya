@@ -135,7 +135,7 @@ html {
   height: auto;
   
   /* FIX 1: Lowered max-height so the note never physically pokes out of the blue envelope */
-  max-height: 225px; 
+  max-height: 335px; 
   
   background: #fff9f0;
   color: #0d0d2b;
