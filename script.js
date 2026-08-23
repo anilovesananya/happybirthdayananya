@@ -32,6 +32,9 @@ function initApp() {
             noteCard.scrollTop = 0;
           }, 10);
         }
+        
+        // Trigger the raining hearts animation!
+        createHeartShower();
       }
     });
   }
@@ -241,6 +244,34 @@ function startISTCountdown() {
     if (minsEl) minsEl.textContent = String(minutes).padStart(2, "0");
     if (secsEl) secsEl.textContent = String(seconds).padStart(2, "0");
   }, 1000);
+}
+
+// ─── RAINING HEARTS ANIMATION ───
+function createHeartShower() {
+  const colors = ['#ff0090', '#ffe600']; // Hot Pink and Yellow theme colors
+  
+  for (let i = 0; i < 35; i++) {
+    // Stagger the falling hearts so they don't drop all at once
+    setTimeout(() => {
+      const heart = document.createElement('div');
+      heart.className = 'falling-heart';
+      heart.textContent = '♥';
+      
+      // Randomize color, horizontal position, size, and falling speed
+      heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = (Math.random() * 1.2 + 1) + 'rem';
+      heart.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
+      
+      document.body.appendChild(heart);
+      
+      // Automatically clean up the heart from the DOM after 5 seconds to keep performance smooth
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+      
+    }, i * 40); 
+  }
 }
 
 // ─── SAFE STARTUP ───
