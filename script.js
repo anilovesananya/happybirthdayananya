@@ -110,7 +110,7 @@ async function fetchData(messageElement, todayDayLabel) {
       }
     } else if (messageElement) {
       // Set the cute custom fallback message
-      messageElement.textContent = "hello littul bebe, you have to wait until midnight for your message";
+      messageElement.textContent = "Hello Biwiji, you have to wait until midnight for your message!";
       // Hide the author name since there is no note
       if (authorElement) {
         authorElement.style.display = "none";
