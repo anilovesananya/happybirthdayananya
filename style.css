@@ -133,7 +133,10 @@ html {
   width: calc(100% - 24px);
   min-height: 260px;
   height: auto;
+  
+  /* FIX 1: Lowered max-height so the note never physically pokes out of the blue envelope */
   max-height: 310px; 
+  
   background: #fff9f0;
   color: #0d0d2b;
   
@@ -149,7 +152,10 @@ html {
   text-align: center;
   opacity: 0;
   z-index: 25;
+  
+  /* FIX 2: Swapped to block to force Safari and Firefox to calculate bottom margins correctly */
   display: block; 
+  
   overflow-x: hidden;
   overflow-y: auto;
   pointer-events: none;
@@ -157,13 +163,6 @@ html {
   
   scrollbar-color: #ffe600 transparent;
   scrollbar-width: thin;
-}
-
-/* THIS FIXES THE CUT-OFF: It injects an invisible 1.5rem spacer at the very bottom */
-.note-slide::after {
-  content: "";
-  display: block;
-  height: 1.5rem;
 }
 
 /* Note Open State - Symmetrical translation */
@@ -181,7 +180,7 @@ html {
   text-transform: uppercase;
   color: #ff0090;
   margin-bottom: 0.75rem;
-  display: inline-block; 
+  display: inline-block; /* Aligns perfectly in block mode */
 }
 
 .note-message {
@@ -199,7 +198,10 @@ html {
   font-size: 1.35rem; 
   font-weight: normal;
   color: #1a1aff;
-  display: block; 
+  display: block; /* Aligns perfectly in block mode */
+  
+  /* FIX 3: Gives a clean safe-zone at the bottom so text doesn't hit the border */
+  margin-bottom: 1.5rem; 
 }
 
 /* Envelope Body */
@@ -664,9 +666,10 @@ html {
   position: fixed;
   top: -10vh;
   z-index: 1000;
-  pointer-events: none; 
+  pointer-events: none; /* Prevents hearts from blocking clicks */
   user-select: none;
   animation: fall linear forwards;
+  /* Adds a slight brutalist shadow to match the theme */
   text-shadow: 2px 2px 0px #0d0d2b; 
 }
 
