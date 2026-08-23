@@ -76,6 +76,9 @@ function initApp() {
 
 // ─── DATA FETCHING ───
 async function fetchData(messageElement, todayDayLabel) {
+  // Grab the author element so we can hide/show it based on note availability
+  const authorElement = document.querySelector(".note-author");
+
   try {
     const response = await fetch(WORKER_URL);
     if (!response.ok) {
@@ -101,14 +104,27 @@ async function fetchData(messageElement, todayDayLabel) {
       if (todayDayLabel) {
         todayDayLabel.textContent = `Day ${cleanDay}`;
       }
+      // Ensure the author name is visible when a note is present
+      if (authorElement) {
+        authorElement.style.display = ""; 
+      }
     } else if (messageElement) {
-      messageElement.textContent = "No note available for today yet!";
+      // Set the cute custom fallback message
+      messageElement.textContent = "hello littul bebe, you have to wait until midnight for your message";
+      // Hide the author name since there is no note
+      if (authorElement) {
+        authorElement.style.display = "none";
+      }
     }
 
   } catch (error) {
     console.error("Error fetching Notion notes:", error);
     if (messageElement) {
       messageElement.textContent = "Oops! Couldn't load today's note.";
+    }
+    // Hide the author name if there is a loading error
+    if (authorElement) {
+      authorElement.style.display = "none";
     }
   } finally {
     // Ensure calendar renders even if fetch fails
