@@ -160,7 +160,13 @@ html {
   scrollbar-color: #ffe600 transparent;
   scrollbar-width: thin;
 }
-
+/* Creates an invisible bumper at the bottom of the note to prevent text cut-off */
+.note-slide::after {
+  content: "";
+  display: block;
+  min-height: 2.5rem; /* The amount of extra scroll space at the bottom */
+  flex-shrink: 0;
+}
 /* Note Open State - Symmetrical translation */
 .envelope-open .note-slide {
   transform: translateX(-50%) translateY(-65px);
