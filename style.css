@@ -107,6 +107,11 @@ html {
   border: 2px solid rgba(255, 255, 255, 0.18);
   box-shadow: 8px 8px 0px #ff0090;
   max-width: 90vw;
+  
+  /* ✅ NEW: Center the title box */
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .highlight-yellow { color: #ffe600; font-style: italic; }
@@ -122,6 +127,10 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
+  
+  /* ✅ NEW: Center the envelope */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Note Slide */
