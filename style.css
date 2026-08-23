@@ -16,11 +16,13 @@ body {
   background-color: #0c0b22;
   color: #fff9f0;
   overflow-x: hidden;
-  /* Canva pattern background */
+  
+  /* Background fix for desktop to prevent tearing seams */
   background-image: url('bg-pattern.png');
-  background-repeat: repeat;
+  background-repeat: no-repeat; /* Stops the hard seams */
   background-position: center top;
-  background-size: 420px auto;
+  background-size: cover; /* Scales the image to fill any wide screen */
+  background-attachment: fixed; /* Locks the stars in place while scrolling */
 }
 
 /* ─── GLOBAL SCROLLBAR (For the main page) ─── */
