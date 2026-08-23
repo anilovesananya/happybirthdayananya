@@ -94,7 +94,7 @@ html {
   position: relative;
   z-index: 5;
   text-align: center;
-  margin-bottom: 2.75rem;
+  margin-bottom: 5.5rem; /* Increased from 2.75rem to prevent overlap */
   line-height: 1.25;
   font-family: 'Fraunces', serif;
   font-size: clamp(2rem, 5.5vw, 3.4rem);
