@@ -16,8 +16,7 @@ body {
   background-color: #0c0b22;
   color: #fff9f0;
   overflow-x: hidden;
-  
-  /* 100% reverted to your exact original background code */
+  /* Canva pattern background - Restored to original size */
   background-image: url('bg-pattern.png');
   background-repeat: repeat;
   background-position: center top;
@@ -62,14 +61,14 @@ html {
 
 /* ─── HERO ENVELOPE SECTION ─── */
 .envelope-section {
-  min-height: 100dvh; 
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: hidden; 
-  padding: 5rem 1.5rem 8rem 1.5rem; 
+  overflow: hidden;
+  padding: 5rem 1.5rem;
 }
 
 /* Pink Pill with Yellow Offset Shadow */
@@ -95,7 +94,7 @@ html {
   position: relative;
   z-index: 5;
   text-align: center;
-  margin: 0 auto 3.5rem auto; 
+  margin-bottom: 5.5rem; 
   line-height: 1.25;
   font-family: 'Fraunces', serif;
   font-size: clamp(2rem, 5.5vw, 3.4rem);
@@ -107,9 +106,7 @@ html {
   border-radius: 1.25rem;
   border: 2px solid rgba(255, 255, 255, 0.18);
   box-shadow: 8px 8px 0px #ff0090;
-  
-  width: 92%;
-  max-width: 390px;
+  max-width: 90vw;
 }
 
 .highlight-yellow { color: #ffe600; font-style: italic; }
@@ -120,14 +117,11 @@ html {
   position: relative;
   cursor: pointer;
   user-select: none;
+  width: min(390px, 92vw);
   z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
-  
-  width: 92%;
-  max-width: 390px;
-  margin: 0 auto;
 }
 
 /* Note Slide */
@@ -139,7 +133,10 @@ html {
   width: calc(100% - 24px);
   min-height: 260px;
   height: auto;
-  max-height: 380px; 
+  
+  /* FIX 1: Lowered max-height so the note never physically pokes out of the blue envelope */
+  max-height: 310px; 
+  
   background: #fff9f0;
   color: #0d0d2b;
   
@@ -148,15 +145,17 @@ html {
   border-bottom: 1.5rem solid #fff9f0;
   border-left: 0.5rem solid #fff9f0;
   border-right: 0.5rem solid #fff9f0;
+  padding: 0.25rem 0.5rem;
   
-  padding: 0.5rem;
   box-shadow: inset 0 0 0 2px #fff9f0, 0 15px 40px rgba(0,0,0,0.7);
 
   text-align: center;
   opacity: 0;
   z-index: 25;
   
+  /* FIX 2: Swapped to block to force Safari and Firefox to calculate bottom margins correctly */
   display: block; 
+  
   overflow-x: hidden;
   overflow-y: auto;
   pointer-events: none;
@@ -164,14 +163,6 @@ html {
   
   scrollbar-color: #ffe600 transparent;
   scrollbar-width: thin;
-}
-
-/* ULTIMATE SAFARI CUT-OFF FIX */
-.note-slide::after {
-  content: "\00a0"; 
-  display: block;
-  height: 2rem; 
-  pointer-events: none;
 }
 
 /* Note Open State - Symmetrical translation */
@@ -189,7 +180,7 @@ html {
   text-transform: uppercase;
   color: #ff0090;
   margin-bottom: 0.75rem;
-  display: inline-block;
+  display: inline-block; /* Aligns perfectly in block mode */
 }
 
 .note-message {
@@ -197,21 +188,20 @@ html {
   font-size: 1.45rem;
   line-height: 1.5;
   color: #0d0d2b;
-  
-  margin: 0.5rem 0 0 0;
-  padding-bottom: 1.5rem; 
+  margin: 0.5rem 0;
   word-break: break-word;
 }
 
 .note-author {
+  margin-top: 0.75rem;
   font-family: 'MyHandwriting', 'Fraunces', serif; 
   font-size: 1.35rem; 
   font-weight: normal;
   color: #1a1aff;
-  display: block;
+  display: block; /* Aligns perfectly in block mode */
   
-  margin: 0;
-  padding-bottom: 3rem; 
+  /* FIX 3: Gives a clean safe-zone at the bottom so text doesn't hit the border */
+  margin-bottom: 1.5rem; 
 }
 
 /* Envelope Body */
@@ -313,7 +303,7 @@ html {
 /* ─── COUNTDOWN SECTION ─── */
 .countdown-section {
   background: #ff0090;
-  min-height: 45dvh; 
+  min-height: 45vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -383,7 +373,7 @@ html {
 /* ─── CALENDAR ARCHIVE SECTION ─── */
 .calendar-section {
   background: transparent;
-  min-height: 80dvh; 
+  min-height: 80vh;
   position: relative;
   overflow: hidden;
   padding: 6rem 1.5rem;
@@ -595,7 +585,7 @@ html {
   text-align: center;
   transform: scale(0.92);
   transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-  max-height: 80dvh; 
+  max-height: 80vh;
   overflow-x: hidden;
   overflow-y: auto;
   
@@ -676,9 +666,10 @@ html {
   position: fixed;
   top: -10vh;
   z-index: 1000;
-  pointer-events: none; 
+  pointer-events: none; /* Prevents hearts from blocking clicks */
   user-select: none;
   animation: fall linear forwards;
+  /* Adds a slight brutalist shadow to match the theme */
   text-shadow: 2px 2px 0px #0d0d2b; 
 }
 
