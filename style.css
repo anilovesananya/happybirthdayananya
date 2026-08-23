@@ -16,14 +16,12 @@ body {
   background-color: #0c0b22;
   color: #fff9f0;
   overflow-x: hidden;
-  /* Canva pattern background - Restored to original size */
   background-image: url('bg-pattern.png');
   background-repeat: repeat;
   background-position: center top;
-  background-size: 420px auto; 
+  background-size: 420px auto;
 }
 
-/* ─── GLOBAL SCROLLBAR (For the main page) ─── */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -36,13 +34,12 @@ body {
   border: 2px solid #0c0b22;
 }
 html {
-  background-color: #0c0b22; 
+  background-color: #0c0b22;
   scrollbar-color: #ffe600 #0c0b22;
   scrollbar-width: thin;
-  overflow-x: hidden; 
+  overflow-x: hidden;
 }
 
-/* ─── ACCENTS ─── */
 .memphis-bg {
   background: transparent;
 }
@@ -59,7 +56,6 @@ html {
 .pill-mint { top: 33%; right: 2rem; width: 1rem; height: 4rem; background: #00e5a0; opacity: 0.4; border-radius: 9999px; }
 .pill-yellow { top: 50%; left: 2rem; width: 4rem; height: 1rem; background: #ffe600; opacity: 0.3; border-radius: 9999px; }
 
-/* ─── HERO ENVELOPE SECTION ─── */
 .envelope-section {
   min-height: 100vh;
   display: flex;
@@ -71,7 +67,6 @@ html {
   padding: 5rem 1.5rem;
 }
 
-/* Pink Pill with Yellow Offset Shadow */
 .header-pill {
   position: relative;
   z-index: 5;
@@ -87,37 +82,31 @@ html {
   color: #fff9f0;
   border: 2px solid #0d0d2b;
   box-shadow: 4px 4px 0px #ffe600;
+  display: inline-block;  /* 👈 prevents full‑width on mobile */
 }
 
-/* Card Container with Hot Pink Offset Shadow */
 .main-title {
   position: relative;
   z-index: 5;
   text-align: center;
-  margin-bottom: 5.5rem; 
+  margin-bottom: 5.5rem;
   line-height: 1.25;
   font-family: 'Fraunces', serif;
   font-size: clamp(2rem, 5.5vw, 3.4rem);
   font-weight: 900;
   color: #fff9f0;
-
   background: #0d0d2b;
   padding: 1.5rem 2.2rem;
   border-radius: 1.25rem;
   border: 2px solid rgba(255, 255, 255, 0.18);
   box-shadow: 8px 8px 0px #ff0090;
   max-width: 90vw;
-  
-  /* ✅ NEW: Center the title box */
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
+  width: fit-content;      /* 👈 shrinks to text, parent flex centers it */
 }
 
 .highlight-yellow { color: #ffe600; font-style: italic; }
 .highlight-pink { color: #ff0090; }
 
-/* Envelope Container */
 .envelope-container {
   position: relative;
   cursor: pointer;
@@ -127,13 +116,9 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  
-  /* ✅ NEW: Center the envelope */
-  margin-left: auto;
-  margin-right: auto;
+  /* No auto margins – parent flex centers it perfectly */
 }
 
-/* Note Slide */
 .note-slide {
   position: absolute;
   left: 50%;
@@ -142,39 +127,28 @@ html {
   width: calc(100% - 24px);
   min-height: 260px;
   height: auto;
-  
-  /* FIX 1: Lowered max-height so the note never physically pokes out of the blue envelope */
-  max-height: 335px; 
-  
+  max-height: 335px;
   background: #fff9f0;
   color: #0d0d2b;
-  
   border-radius: 1.25rem;
   border-top: 1.5rem solid #fff9f0;
   border-bottom: 1.5rem solid #fff9f0;
   border-left: 0.5rem solid #fff9f0;
   border-right: 0.5rem solid #fff9f0;
   padding: 0.25rem 0.5rem;
-  
   box-shadow: inset 0 0 0 2px #fff9f0, 0 15px 40px rgba(0,0,0,0.7);
-
   text-align: center;
   opacity: 0;
   z-index: 25;
-  
-  /* FIX 2: Swapped to block to force Safari and Firefox to calculate bottom margins correctly */
-  display: block; 
-  
+  display: block;
   overflow-x: hidden;
   overflow-y: auto;
   pointer-events: none;
   transition: transform 0.5s 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s 0.2s ease;
-  
   scrollbar-color: #ffe600 transparent;
   scrollbar-width: thin;
 }
 
-/* Note Open State - Symmetrical translation */
 .envelope-open .note-slide {
   transform: translateX(-50%) translateY(-65px);
   opacity: 1;
@@ -189,7 +163,7 @@ html {
   text-transform: uppercase;
   color: #ff0090;
   margin-bottom: 0.75rem;
-  display: inline-block; /* Aligns perfectly in block mode */
+  display: inline-block;
 }
 
 .note-message {
@@ -203,17 +177,14 @@ html {
 
 .note-author {
   margin-top: 0.75rem;
-  font-family: 'MyHandwriting', 'Fraunces', serif; 
-  font-size: 1.35rem; 
+  font-family: 'MyHandwriting', 'Fraunces', serif;
+  font-size: 1.35rem;
   font-weight: normal;
   color: #1a1aff;
-  display: block; /* Aligns perfectly in block mode */
-  
-  /* FIX 3: Gives a clean safe-zone at the bottom so text doesn't hit the border */
-  margin-bottom: 1.5rem; 
+  display: block;
+  margin-bottom: 1.5rem;
 }
 
-/* Envelope Body */
 .envelope-body {
   position: relative;
   width: 100%;
@@ -285,7 +256,6 @@ html {
   transform: translateX(-50%);
 }
 
-/* Yellow Pill Button for Hint */
 .click-hint {
   text-align: center;
   margin-top: 1.75rem;
@@ -303,13 +273,11 @@ html {
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-/* Hides the hint button gracefully when envelope opens */
 .envelope-open .click-hint {
   opacity: 0;
   pointer-events: none;
 }
 
-/* ─── COUNTDOWN SECTION ─── */
 .countdown-section {
   background: #ff0090;
   min-height: 45vh;
@@ -379,7 +347,6 @@ html {
   font-size: clamp(2rem, 7vw, 3.5rem);
 }
 
-/* ─── CALENDAR ARCHIVE SECTION ─── */
 .calendar-section {
   background: transparent;
   min-height: 80vh;
@@ -412,6 +379,7 @@ html {
   background: #ffe600;
   color: #0d0d2b;
   box-shadow: 0 4px 15px rgba(255, 230, 0, 0.4);
+  display: inline-block; /* 👈 ensures it doesn't stretch */
 }
 
 .calendar-heading {
@@ -420,16 +388,14 @@ html {
   font-weight: 900;
   color: #fff9f0;
   line-height: 1.25;
-
   background: #0d0d2b;
   padding: 1.5rem 2.2rem;
   border-radius: 1.25rem;
   border: 2px solid rgba(255, 255, 255, 0.18);
   box-shadow: 8px 8px 0px #ff0090;
-  
   display: block;
   width: fit-content;
-  margin: 1.5rem auto 0; 
+  margin: 1.5rem auto 0;
   max-width: 90vw;
 }
 
@@ -439,6 +405,7 @@ html {
   background: #13134a;
   border: 3px solid #1a1aff;
   box-shadow: 8px 8px 0 #1a1aff;
+  /* Centered because its parent .calendar-inner has margin: 0 auto */
 }
 
 .calendar-month-nav {
@@ -554,7 +521,6 @@ html {
 .unlocked-box { background: #ff0090; }
 .today-box { border: 2px solid #ffe600; background: transparent; }
 
-/* ─── MODAL / POPUP ─── */
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -581,23 +547,19 @@ html {
   max-width: 480px;
   background: #fff9f0;
   color: #0d0d2b;
-  
   border-radius: 1.25rem;
   border-top: 1.5rem solid #fff9f0;
   border-bottom: 1.5rem solid #fff9f0;
   border-left: 0.5rem solid #fff9f0;
   border-right: 0.5rem solid #fff9f0;
   padding: 1rem 1.5rem 0.5rem 1.5rem;
-  
   box-shadow: inset 0 0 0 2px #fff9f0, 0 0 0 3px #ff0090, 8px 8px 0px #ff0090;
-
   text-align: center;
   transform: scale(0.92);
   transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   max-height: 80vh;
   overflow-x: hidden;
   overflow-y: auto;
-  
   scrollbar-color: #ffe600 transparent;
   scrollbar-width: thin;
 }
@@ -655,14 +617,13 @@ html {
   color: #1a1aff;
 }
 
-/* ─── INSET CUSTOM SCROLLBAR FOR BOTH NOTES (Webkit fallback) ─── */
 .note-slide::-webkit-scrollbar,
 .modal-card::-webkit-scrollbar {
-  width: 6px; 
+  width: 6px;
 }
 .note-slide::-webkit-scrollbar-track,
 .modal-card::-webkit-scrollbar-track {
-  background: transparent; 
+  background: transparent;
 }
 .note-slide::-webkit-scrollbar-thumb,
 .modal-card::-webkit-scrollbar-thumb {
@@ -670,16 +631,14 @@ html {
   border-radius: 10px;
 }
 
-/* ─── RAINING HEARTS ANIMATION ─── */
 .falling-heart {
   position: fixed;
   top: -10vh;
   z-index: 1000;
-  pointer-events: none; /* Prevents hearts from blocking clicks */
+  pointer-events: none;
   user-select: none;
   animation: fall linear forwards;
-  /* Adds a slight brutalist shadow to match the theme */
-  text-shadow: 2px 2px 0px #0d0d2b; 
+  text-shadow: 2px 2px 0px #0d0d2b;
 }
 
 @keyframes fall {
