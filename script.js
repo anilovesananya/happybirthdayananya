@@ -123,7 +123,14 @@ async function fetchData(messageElement, todayDayLabel) {
         authorElement.style.display = ""; 
       }
     } else if (messageElement) {
+      // ✅ Restored your original waiting message
       messageElement.textContent = "Hello Biwiji, you have to wait until midnight for your message!";
+      
+      // ✅ Set the pink pill header to your exact request
+      if (todayDayLabel) {
+        todayDayLabel.textContent = "Early bebe catches this message";
+      }
+
       if (authorElement) {
         authorElement.style.display = "none";
       }
