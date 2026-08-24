@@ -16,10 +16,23 @@ body {
   background-color: #0c0b22;
   color: #fff9f0;
   overflow-x: hidden;
+  /* Removed background image properties from here to fix scroll jitter */
+}
+
+/* ✅ NEW: Hardware-accelerated background layer to fix mobile scroll jitter */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
   background-image: url('bg-pattern.png');
   background-repeat: repeat;
   background-position: center top;
   background-size: 420px auto;
+  pointer-events: none;
 }
 
 ::-webkit-scrollbar {
