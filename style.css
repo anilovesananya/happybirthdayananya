@@ -306,14 +306,14 @@ body {
 
 .countdown-section {
   background: #ff0090;
-  min-height: 45vh;
+  min-height: 30vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
-  padding: 5rem 1.5rem;
+  padding: 2rem 1.5rem;
 }
 
 .ct-diamond-yellow { top: 1.5rem; left: 1.5rem; width: 3rem; height: 3rem; background: #ffe600; transform: rotate(45deg); opacity: 0.6; }
