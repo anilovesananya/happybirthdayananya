@@ -20,7 +20,6 @@ body {
   background-repeat: repeat;
   background-position: center top;
   background-size: 420px auto;
-  background-attachment: fixed; /* ✅ Added to stop the optical illusion */
 }
 
 ::-webkit-scrollbar {
