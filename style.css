@@ -15,19 +15,19 @@ body {
   font-family: 'Nunito', sans-serif;
   background-color: transparent; 
   color: #fff9f0;
-  overflow-x: hidden;
-  position: relative;      /* ✅ makes body the containing block for ::before */
-  min-height: 100vh;       /* ✅ ensures background covers at least the viewport */
+  overflow: hidden;           /* ✅ prevents body from creating its own scrollbar */
+  position: relative;         /* makes body the containing block for ::before */
+  min-height: 100vh;          /* ensures background covers at least the viewport */
 }
 
-/* ✅ Hardware-accelerated background layer — now covers overscroll bounce */
+/* ✅ Hardware-accelerated background layer — scrolls dynamically with content */
 body::before {
   content: "";
   position: absolute;
-  top: -150px;                       /* ✅ pulls pattern 150px upward */
+  top: 0;                     /* ← reverted from -150px */
   left: 0;
   width: 100vw;
-  height: calc(100% + 300px);        /* ✅ adds 150px padding to top and bottom */
+  height: 100%;               /* ← reverted from calc(100% + 300px) */
   z-index: -1;
   background-color: #0c0b22; 
   background-image: url('bg-pattern.png');
@@ -36,7 +36,7 @@ body::before {
   background-size: 420px auto;
   pointer-events: none;
   
-  /* GPU Lock — this is what fixes the scroll jitter */
+  /* GPU Lock — keeps scroll jitter fixed */
   transform: translate3d(0, 0, 0);
   -webkit-transform: translate3d(0, 0, 0);
   will-change: transform;
@@ -44,6 +44,21 @@ body::before {
   backface-visibility: hidden;
 }
 
+/* ✅ HTML background – fills the overscroll (rubber-band) area with the same pattern */
+html {
+  background-color: #0c0b22;                      /* fallback colour */
+  background-image: url('bg-pattern.png');        /* same pattern */
+  background-repeat: repeat;
+  background-position: center top;
+  background-size: 420px auto;
+  background-attachment: scroll;                  /* moves with content – dynamic! */
+  overflow-y: auto;                              /* handles scrolling */
+  overflow-x: hidden;
+  scrollbar-color: #ffe600 #0c0b22;
+  scrollbar-width: thin;
+}
+
+/* Restore scrollbar styles (they were on html, now we keep them) */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -55,12 +70,8 @@ body::before {
   border-radius: 8px;
   border: 2px solid #0c0b22;
 }
-html {
-  background-color: #0c0b22;
-  scrollbar-color: #ffe600 #0c0b22;
-  scrollbar-width: thin;
-  overflow-x: hidden;
-}
+
+/* --- everything below is unchanged from your original code --- */
 
 .memphis-bg {
   background: transparent;
@@ -684,5 +695,3 @@ html {
     opacity: 0;
   }
 }
-
-/* ✅ The mobile URL-bar hack has been removed — it's no longer needed */
