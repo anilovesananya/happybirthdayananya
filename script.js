@@ -253,30 +253,30 @@ function startISTCountdown() {
 
 // ─── RAINING HEARTS ANIMATION ───
 function createHeartShower() {
-  // Swapped to pure, unapologetic red!
   const colors = ['#ff0000']; 
   
-  for (let i = 0; i < 35; i++) {
-    // Stagger the falling hearts so they don't drop all at once
+  // ✅ Doubled the density: 70 hearts instead of 35
+  for (let i = 0; i < 70; i++) {
+    // ✅ Faster stagger (30ms) so they create a smoother shower effect
     setTimeout(() => {
       const heart = document.createElement('div');
       heart.className = 'falling-heart';
       heart.textContent = '♥';
       
-      // Randomize horizontal position, size, and falling speed
       heart.style.color = colors[Math.floor(Math.random() * colors.length)];
       heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.fontSize = (Math.random() * 1.2 + 1) + 'rem';
+      
+      // ✅ Smaller sizes: ranges from 0.6rem to 1.4rem
+      heart.style.fontSize = (Math.random() * 0.8 + 0.6) + 'rem';
       heart.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
       
       document.body.appendChild(heart);
       
-      // Automatically clean up the heart from the DOM after 5 seconds
       setTimeout(() => {
         heart.remove();
       }, 5000);
       
-    }, i * 40); 
+    }, i * 30); 
   }
 }
 
