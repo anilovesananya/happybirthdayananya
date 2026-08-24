@@ -662,3 +662,10 @@ html {
     opacity: 0;
   }
 }
+/* Mobile-only font size adjustments */
+@media (max-width: 768px) {
+  .note-message {
+    font-size: 1.2rem; /* Adjust this number just for the phone */
+    line-height: 1.6; /* Comfortable spacing for the smaller screen */
+  }
+}
