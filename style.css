@@ -13,13 +13,12 @@
 
 body {
   font-family: 'Nunito', sans-serif;
-  background-color: #0c0b22;
+  background-color: transparent; /* ✅ Makes the body clear so the stars show through */
   color: #fff9f0;
   overflow-x: hidden;
-  /* Removed background image properties from here to fix scroll jitter */
 }
 
-/* ✅ NEW: Hardware-accelerated background layer to fix mobile scroll jitter */
+/* ✅ Hardware-accelerated background layer to fix mobile scroll jitter */
 body::before {
   content: "";
   position: fixed;
@@ -28,11 +27,17 @@ body::before {
   width: 100vw;
   height: 100vh;
   z-index: -1;
+  background-color: #0c0b22; /* ✅ Solid navy blue moved here */
   background-image: url('bg-pattern.png');
   background-repeat: repeat;
   background-position: center top;
   background-size: 420px auto;
   pointer-events: none;
+  
+  /* ✅ The "Chrome Hack" forces the phone's GPU to take over */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
 }
 
 ::-webkit-scrollbar {
