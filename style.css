@@ -11,7 +11,7 @@
   padding: 0;
 }
 
-/* ─── HTML – dark background, scrolls, with a thick dark right border ─── */
+/* ─── HTML – dark background, scrolls, with a subtle dark right shadow ─── */
 html {
   background-color: #0c0b22;
   background-image: url('bg-pattern.png');
@@ -27,12 +27,11 @@ html {
   scrollbar-color: #ffe600 #0c0b22;
   scrollbar-width: thin;
   scrollbar-gutter: stable;
-  /* Dark right border to cover any white sliver */
-  border-right: 4px solid #0c0b22;
-  box-shadow: inset 0 0 0 4px #0c0b22; /* extra safety */
+  /* 1px inner shadow – covers white sliver without affecting layout */
+  box-shadow: inset 0 0 0 1px #0c0b22;
 }
 
-/* ─── BODY – GPU‑accelerated, non‑scrolling, also dark right border ─── */
+/* ─── BODY – GPU‑accelerated, non‑scrolling, with the same subtle shadow ─── */
 body {
   font-family: 'Nunito', sans-serif;
   background-color: #0c0b22;
@@ -48,9 +47,8 @@ body {
   min-height: 100vh;
   min-height: 100dvh;
   width: 100%;
-  /* Dark right border – covers the scrollbar area */
-  border-right: 4px solid #0c0b22;
-  box-shadow: inset 0 0 0 4px #0c0b22;
+  /* 1px inner shadow – extra safety */
+  box-shadow: inset 0 0 0 1px #0c0b22;
   /* GPU lock – fixes scroll jitter */
   transform: translate3d(0, 0, 0);
   -webkit-transform: translate3d(0, 0, 0);
