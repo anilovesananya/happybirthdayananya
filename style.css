@@ -11,7 +11,7 @@
   padding: 0;
 }
 
-/* ✅ HTML – scrolling, pattern, and dark box-shadow to kill the white bar */
+/* ✅ HTML – scrolling, pattern, and forced dark track for Firefox */
 html {
   background-color: #0c0b22;
   background-image: url('bg-pattern.png');
@@ -21,13 +21,28 @@ html {
   background-attachment: scroll;
   overflow-y: auto;
   overflow-x: hidden;
-  scrollbar-color: #ffe600 #0c0b22;   /* yellow thumb, dark track */
+  /* Standard scrollbar styling – yellow thumb, dark track */
+  scrollbar-color: #ffe600 #0c0b22;
   scrollbar-width: thin;
   width: 100%;
-  box-shadow: inset 0 0 0 1px #0c0b22; /* ✅ covers any right‑edge white gap */
+  /* Dark inner border to mask any white sliver */
+  box-shadow: inset 0 0 0 1px #0c0b22;
 }
 
-/* ✅ Body – GPU accelerated, non‑scrolling, with pattern and its own shadow */
+/* Firefox‑specific scrollbar track – overrides any white background */
+html::-moz-scrollbar {
+  background-color: #0c0b22;
+}
+html::-moz-scrollbar-track {
+  background-color: #0c0b22;
+}
+html::-moz-scrollbar-thumb {
+  background-color: #ffe600;
+  border-radius: 8px;
+  border: 2px solid #0c0b22;
+}
+
+/* ✅ Body – GPU accelerated, non‑scrolling, with pattern and shadow */
 body {
   font-family: 'Nunito', sans-serif;
   background-color: #0c0b22;
@@ -44,7 +59,7 @@ body {
   width: 100%;
   box-shadow: inset 0 0 0 1px #0c0b22; /* extra safety */
 
-  /* GPU lock – keeps scroll jitter fixed */
+  /* GPU lock – fixes scroll jitter */
   transform: translate3d(0, 0, 0);
   -webkit-transform: translate3d(0, 0, 0);
   will-change: transform;
@@ -52,7 +67,7 @@ body {
   backface-visibility: hidden;
 }
 
-/* Scrollbar styling for WebKit browsers (yellow thumb, dark track) */
+/* Scrollbar styling for WebKit browsers (Chrome, Edge, Safari) – yellow thumb */
 ::-webkit-scrollbar {
   width: 10px;
 }
