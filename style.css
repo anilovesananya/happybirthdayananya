@@ -11,7 +11,7 @@
   padding: 0;
 }
 
-/* ✅ HTML – scrolling, pattern, and forced dark track for Firefox */
+/* ─── HTML – dark background, scrolls, with a thick dark border ─── */
 html {
   background-color: #0c0b22;
   background-image: url('bg-pattern.png');
@@ -21,28 +21,17 @@ html {
   background-attachment: scroll;
   overflow-y: auto;
   overflow-x: hidden;
-  /* Standard scrollbar styling – yellow thumb, dark track */
+  width: 100%;
+  height: 100%;
+  /* Force the scrollbar track to be dark */
   scrollbar-color: #ffe600 #0c0b22;
   scrollbar-width: thin;
-  width: 100%;
-  /* Dark inner border to mask any white sliver */
-  box-shadow: inset 0 0 0 1px #0c0b22;
+  scrollbar-gutter: stable;
+  /* Thick dark inner border to cover any white sliver */
+  box-shadow: inset 0 0 0 4px #0c0b22;
 }
 
-/* Firefox‑specific scrollbar track – overrides any white background */
-html::-moz-scrollbar {
-  background-color: #0c0b22;
-}
-html::-moz-scrollbar-track {
-  background-color: #0c0b22;
-}
-html::-moz-scrollbar-thumb {
-  background-color: #ffe600;
-  border-radius: 8px;
-  border: 2px solid #0c0b22;
-}
-
-/* ✅ Body – GPU accelerated, non‑scrolling, with pattern and shadow */
+/* ─── BODY – GPU‑accelerated, non‑scrolling, also dark ─── */
 body {
   font-family: 'Nunito', sans-serif;
   background-color: #0c0b22;
@@ -56,9 +45,10 @@ body {
   overflow-x: hidden;
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
-  box-shadow: inset 0 0 0 1px #0c0b22; /* extra safety */
-
+  /* Additional dark inner shadow – extra safety */
+  box-shadow: inset 0 0 0 4px #0c0b22;
   /* GPU lock – fixes scroll jitter */
   transform: translate3d(0, 0, 0);
   -webkit-transform: translate3d(0, 0, 0);
@@ -67,7 +57,7 @@ body {
   backface-visibility: hidden;
 }
 
-/* Scrollbar styling for WebKit browsers (Chrome, Edge, Safari) – yellow thumb */
+/* ─── WebKit scrollbar styling (Chrome, Safari, Edge) ─── */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -80,7 +70,26 @@ body {
   border: 2px solid #0c0b22;
 }
 
-/* ─── everything below is unchanged ─── */
+/* ─── Firefox scrollbar styling – explicit dark track and yellow thumb ─── */
+* {
+  scrollbar-color: #ffe600 #0c0b22;
+  scrollbar-width: thin;
+}
+
+/* Override for Firefox if the above doesn't stick */
+html::-moz-scrollbar {
+  background-color: #0c0b22;
+}
+html::-moz-scrollbar-track {
+  background-color: #0c0b22;
+}
+html::-moz-scrollbar-thumb {
+  background-color: #ffe600;
+  border-radius: 8px;
+  border: 2px solid #0c0b22;
+}
+
+/* ─── everything below is exactly as you had it ─── */
 
 .memphis-bg {
   background: transparent;
