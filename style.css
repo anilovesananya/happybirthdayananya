@@ -16,31 +16,31 @@ html {
   background-color: #0c0b22;
   background-image: url('bg-pattern.png');
   background-repeat: repeat;
-  background-position: center top -150px;  /* fills top gap */
+  background-position: center top -150px;
   background-size: 420px auto;
   background-attachment: scroll;
   overflow-y: auto;
-  overflow-x: hidden;                     /* ✅ prevent horizontal scroll */
-  scrollbar-color: #0c0b22 #0c0b22;       /* ✅ dark track & thumb for Firefox */
+  overflow-x: hidden;
+  scrollbar-color: #ffe600 #0c0b22;   /* ✅ yellow thumb, dark track – fixes Firefox white bar */
   scrollbar-width: thin;
-  width: 100%;                            /* ✅ full width */
+  width: 100%;
 }
 
 /* ✅ Body: GPU‑accelerated, non‑scrolling, with the same pattern to fill any gaps */
 body {
   font-family: 'Nunito', sans-serif;
-  background-color: #0c0b22;              /* ✅ changed from transparent */
-  background-image: url('bg-pattern.png'); /* ✅ duplicate pattern */
+  background-color: #0c0b22;
+  background-image: url('bg-pattern.png');
   background-repeat: repeat;
-  background-position: center top -150px;  /* match html */
+  background-position: center top -150px;
   background-size: 420px auto;
   background-attachment: scroll;
   color: #fff9f0;
-  overflow: hidden;                       /* body does NOT scroll */
-  overflow-x: hidden;                     /* ✅ safety */
+  overflow: hidden;
+  overflow-x: hidden;
   position: relative;
   min-height: 100vh;
-  width: 100%;                            /* ✅ full width */
+  width: 100%;
 
   /* GPU lock – fixes scroll jitter */
   transform: translate3d(0, 0, 0);
@@ -50,7 +50,7 @@ body {
   backface-visibility: hidden;
 }
 
-/* Scrollbar styling for WebKit browsers (Chrome, Edge, Safari) */
+/* Scrollbar styling for WebKit browsers (Chrome, Edge, Safari) – stays yellow */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -315,21 +315,21 @@ body {
 /* Desktop (default) – Original larger size */
 .countdown-section {
   background: #ff0090;
-  min-height: 45vh;           /* ← Desktop: large */
+  min-height: 45vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
-  padding: 5rem 1.5rem;       /* ← Desktop: large padding */
+  padding: 5rem 1.5rem;
 }
 
 /* Mobile override – Smaller size */
 @media (max-width: 768px) {
   .countdown-section {
-    min-height: 30vh;         /* ← Mobile: shorter */
-    padding: 2rem 1.5rem;     /* ← Mobile: less vertical padding */
+    min-height: 30vh;
+    padding: 2rem 1.5rem;
   }
 }
 
