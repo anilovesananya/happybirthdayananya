@@ -40,10 +40,16 @@ body {
   background-repeat: repeat;
   background-position: center top -150px;
   background-size: 420px auto;
-  background-attachment: scroll;
+  
+  /* ✅ FIX 1: Forces the stars to physically scroll up and down with the content */
+  background-attachment: local !important; 
+  
   overflow-y: auto;
-  overflow-x: hidden;
-  width: 100%;
+  
+  /* ✅ FIX 2: Kills the wobble by strictly forbidding horizontal movement and honoring width */
+  overflow-x: hidden !important;
+  width: 100% !important;
+  
   height: 100vh;
   height: 100dvh;
   
