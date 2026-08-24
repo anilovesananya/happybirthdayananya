@@ -11,22 +11,14 @@
   padding: 0;
 }
 
-/* ✅ HTML gets the pattern – covers overscroll area */
+/* ✅ HTML – fallback, no scrolling */
 html {
   background-color: #0c0b22;
-  background-image: url('bg-pattern.png');
-  background-repeat: repeat;
-  background-position: center top -150px;
-  background-size: 420px auto;
-  background-attachment: scroll;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scrollbar-color: #ffe600 #0c0b22;   /* ✅ yellow thumb, dark track – fixes Firefox white bar */
-  scrollbar-width: thin;
+  overflow: hidden;
   width: 100%;
 }
 
-/* ✅ Body: GPU‑accelerated, non‑scrolling, with the same pattern to fill any gaps */
+/* ✅ Body – GPU‑accelerated, non‑scrolling, with pattern + the fix */
 body {
   font-family: 'Nunito', sans-serif;
   background-color: #0c0b22;
@@ -42,7 +34,10 @@ body {
   min-height: 100vh;
   width: 100%;
 
-  /* GPU lock – fixes scroll jitter */
+  /* ✅ The fix – a 1px dark inner border that hides the white bar */
+  box-shadow: inset 0 0 0 1px #0c0b22;
+
+  /* GPU lock – keeps scroll jitter fixed */
   transform: translate3d(0, 0, 0);
   -webkit-transform: translate3d(0, 0, 0);
   will-change: transform;
@@ -50,7 +45,7 @@ body {
   backface-visibility: hidden;
 }
 
-/* Scrollbar styling for WebKit browsers (Chrome, Edge, Safari) – stays yellow */
+/* Scrollbar styling for WebKit browsers (yellow thumb, dark track) */
 ::-webkit-scrollbar {
   width: 10px;
 }
