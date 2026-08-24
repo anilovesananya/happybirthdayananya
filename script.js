@@ -255,9 +255,8 @@ function startISTCountdown() {
 function createHeartShower() {
   const colors = ['#ff0000']; 
   
-  // ✅ Doubled the density: 70 hearts instead of 35
-  for (let i = 0; i < 70; i++) {
-    // ✅ Faster stagger (30ms) so they create a smoother shower effect
+  // ✅ Reduced density by 25%: 52 hearts
+  for (let i = 0; i < 52; i++) {
     setTimeout(() => {
       const heart = document.createElement('div');
       heart.className = 'falling-heart';
