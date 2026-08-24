@@ -18,14 +18,14 @@ body {
   overflow-x: hidden;
 }
 
-/* ✅ Hardware-accelerated background layer with Address Bar Jitter fix */
+/* ✅ Hardware-accelerated background layer */
 body::before {
   content: "";
   position: fixed;
-  top: -100px;     /* Bleeds past the top of the screen */
-  bottom: -100px;  /* Bleeds past the bottom of the screen */
+  top: 0;
   left: 0;
-  right: 0;
+  width: 100vw;
+  height: 100vh; /* Default desktop height */
   z-index: -1;
   background-color: #0c0b22; 
   background-image: url('bg-pattern.png');
@@ -34,11 +34,9 @@ body::before {
   background-size: 420px auto;
   pointer-events: none;
   
-  /* ✅ The "Nuclear Option" for Chrome Mobile GPU */
+  /* GPU Lock */
   transform: translate3d(0, 0, 0);
   -webkit-transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
   will-change: transform;
 }
 
@@ -667,6 +665,7 @@ html {
   animation: fall linear forwards;
   text-shadow: 2px 2px 0px #0d0d2b;
 }
+
 @keyframes fall {
   0% {
     transform: translateY(0) rotate(0deg);
@@ -681,8 +680,13 @@ html {
   }
 }
 
-/* Mobile-only adjustments for the countdown section */
+/* Mobile-only adjustments */
 @media (max-width: 768px) {
+  /* ✅ The Ultimate Address Bar Jitter Fix */
+  body::before {
+    height: 4000px !important; 
+  }
+  
   .countdown-section {
     padding-top: 1.5rem !important;    
     padding-bottom: 1.5rem !important; 
