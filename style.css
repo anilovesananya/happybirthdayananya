@@ -11,40 +11,30 @@
   padding: 0;
 }
 
+/* ✅ HTML gets the pattern – covers overscroll area */
 html {
-  background-color: #0c0b22;          /* fallback colour – no pattern here */
-  overflow-y: auto;                   /* ✅ only one scrollbar – on html */
+  background-color: #0c0b22;
+  background-image: url('bg-pattern.png');
+  background-repeat: repeat;
+  background-position: center top;
+  background-size: 420px auto;
+  background-attachment: scroll;   /* moves with content – dynamic */
+  overflow-y: auto;
   overflow-x: hidden;
   scrollbar-color: #ffe600 #0c0b22;
   scrollbar-width: thin;
 }
 
+/* ✅ Body is GPU‑accelerated and does NOT scroll */
 body {
   font-family: 'Nunito', sans-serif;
-  background-color: transparent; 
+  background-color: transparent;
   color: #fff9f0;
-  overflow: hidden;                   /* ✅ body does NOT scroll */
-  position: relative;                 /* anchor for ::before */
-  min-height: 100vh;                  /* fills viewport when content is short */
-}
+  overflow: hidden;
+  position: relative;
+  min-height: 100vh;
 
-/* ✅ Hardware-accelerated background – now extends far beyond content */
-body::before {
-  content: "";
-  position: absolute;
-  top: -300px;                        /* pull up 300px */
-  left: 0;
-  width: 100vw;
-  height: calc(100% + 600px);         /* add 300px top + 300px bottom */
-  z-index: -1;
-  background-color: #0c0b22; 
-  background-image: url('bg-pattern.png');
-  background-repeat: repeat;
-  background-position: center top;
-  background-size: 420px auto;
-  pointer-events: none;
-  
-  /* GPU Lock – keeps scroll jitter fixed */
+  /* GPU lock – fixes scroll jitter */
   transform: translate3d(0, 0, 0);
   -webkit-transform: translate3d(0, 0, 0);
   will-change: transform;
@@ -52,7 +42,7 @@ body::before {
   backface-visibility: hidden;
 }
 
-/* Scrollbar styling (now on html) */
+/* Scrollbar styling (applies to html) */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -65,7 +55,7 @@ body::before {
   border: 2px solid #0c0b22;
 }
 
-/* --- everything below is unchanged from your original code --- */
+/* ─── everything below is unchanged ─── */
 
 .memphis-bg {
   background: transparent;
@@ -84,8 +74,8 @@ body::before {
 .pill-yellow { top: 50%; left: 2rem; width: 4rem; height: 1rem; background: #ffe600; opacity: 0.3; border-radius: 9999px; }
 
 .envelope-section {
-  min-height: 100vh;           /* Fallback for older browsers */
-  min-height: 100svh;          /* ✅ The ultimate fix for both Chrome jitter and Safari cutoff */
+  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   align-items: center;
