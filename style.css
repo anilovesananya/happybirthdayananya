@@ -20,14 +20,14 @@ body {
   min-height: 100vh;       /* ✅ ensures background covers at least the viewport */
 }
 
-/* ✅ Hardware-accelerated background layer — now scrolls dynamically with content */
+/* ✅ Hardware-accelerated background layer — now covers overscroll bounce */
 body::before {
   content: "";
-  position: absolute;                /* ← changed from fixed */
-  top: 0;
+  position: absolute;
+  top: -150px;                       /* ✅ pulls pattern 150px upward */
   left: 0;
   width: 100vw;
-  height: 100%;                      /* ← grows with body's content height */
+  height: calc(100% + 300px);        /* ✅ adds 150px padding to top and bottom */
   z-index: -1;
   background-color: #0c0b22; 
   background-image: url('bg-pattern.png');
