@@ -16,16 +16,18 @@ body {
   background-color: transparent; 
   color: #fff9f0;
   overflow-x: hidden;
+  position: relative;      /* ✅ makes body the containing block for ::before */
+  min-height: 100vh;       /* ✅ ensures background covers at least the viewport */
 }
 
-/* ✅ Hardware-accelerated background layer */
+/* ✅ Hardware-accelerated background layer — now scrolls dynamically with content */
 body::before {
   content: "";
-  position: fixed;
+  position: absolute;                /* ← changed from fixed */
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh; /* Default desktop height */
+  height: 100%;                      /* ← grows with body's content height */
   z-index: -1;
   background-color: #0c0b22; 
   background-image: url('bg-pattern.png');
@@ -34,10 +36,12 @@ body::before {
   background-size: 420px auto;
   pointer-events: none;
   
-  /* GPU Lock */
+  /* GPU Lock — this is what fixes the scroll jitter */
   transform: translate3d(0, 0, 0);
   -webkit-transform: translate3d(0, 0, 0);
   will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -681,16 +685,4 @@ html {
   }
 }
 
-/* Mobile-only adjustments */
-@media (max-width: 768px) {
-  /* ✅ The Ultimate Address Bar Jitter Fix */
-  body::before {
-    height: 4000px !important; 
-  }
-  
-  .countdown-section {
-    padding-top: 1.5rem !important;    
-    padding-bottom: 1.5rem !important; 
-    min-height: auto !important;       
-  }
-}
+/* ✅ The mobile URL-bar hack has been removed — it's no longer needed */
