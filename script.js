@@ -39,6 +39,20 @@ function initApp() {
     });
   }
 
+  // 2. Calendar Month Navigation (Prev & Next)
+  const prevBtn = document.getElementById("prev-month-btn");
+  if (prevBtn) {
+    prevBtn.addEventListener("click", () => {
+      if (currentMonth === 0) {
+        currentMonth = 11;
+        currentYear -= 1;
+      } else {
+        currentMonth -= 1;
+      }
+      renderCalendar(currentYear, currentMonth);
+    });
+  }
+
   const nextBtn = document.getElementById("next-month-btn");
   if (nextBtn) {
     nextBtn.addEventListener("click", () => {
@@ -79,7 +93,6 @@ function initApp() {
 
 // ─── DATA FETCHING ───
 async function fetchData(messageElement, todayDayLabel) {
-  // Grab the author element so we can hide/show it based on note availability
   const authorElement = document.querySelector(".note-author");
 
   try {
@@ -98,7 +111,6 @@ async function fetchData(messageElement, todayDayLabel) {
 
     const todayMsg = getMessageText(data.todayNote) || getMessageText(data);
     
-    // Grab the day from Notion and clean out the word "Day" so it doesn't double up
     const rawDay = (data.todayNote && (data.todayNote.day || data.todayNote.Day)) || data.day || 1;
     const cleanDay = String(rawDay).replace(/day\s*/i, "").trim();
 
@@ -107,14 +119,11 @@ async function fetchData(messageElement, todayDayLabel) {
       if (todayDayLabel) {
         todayDayLabel.textContent = `Day ${cleanDay}`;
       }
-      // Ensure the author name is visible when a note is present
       if (authorElement) {
         authorElement.style.display = ""; 
       }
     } else if (messageElement) {
-      // Set the cute custom fallback message
       messageElement.textContent = "Hello Biwiji, you have to wait until midnight for your message!";
-      // Hide the author name since there is no note
       if (authorElement) {
         authorElement.style.display = "none";
       }
@@ -125,12 +134,10 @@ async function fetchData(messageElement, todayDayLabel) {
     if (messageElement) {
       messageElement.textContent = "Oops! Couldn't load today's note.";
     }
-    // Hide the author name if there is a loading error
     if (authorElement) {
       authorElement.style.display = "none";
     }
   } finally {
-    // Ensure calendar renders even if fetch fails
     renderCalendar(currentYear, currentMonth);
   }
 }
@@ -202,12 +209,10 @@ function openNoteModal(note, dayNum) {
 
   if (!modal || !modalPill || !modalMessage) return;
 
-  // ✅ Move the modal to the <html> root so position:fixed works correctly
   if (modal.parentElement !== document.documentElement) {
     document.documentElement.appendChild(modal);
   }
 
-  // Grab the day from Notion and clean out the word "Day" for the popup too
   const rawDay = note.day || note.Day || dayNum;
   const cleanDay = String(rawDay).replace(/day\s*/i, "").trim();
   const msg = note.message || note.content || note.note || note.text || "No content found for this day.";
@@ -255,7 +260,6 @@ function startISTCountdown() {
 function createHeartShower() {
   const colors = ['#ff0000']; 
   
-  // ✅ Reduced density by 25%: 29 hearts
   for (let i = 0; i < 29; i++) {
     setTimeout(() => {
       const heart = document.createElement('div');
@@ -265,7 +269,6 @@ function createHeartShower() {
       heart.style.color = colors[Math.floor(Math.random() * colors.length)];
       heart.style.left = Math.random() * 100 + 'vw';
       
-      // ✅ Smaller sizes: ranges from 0.6rem to 1.4rem
       heart.style.fontSize = (Math.random() * 0.8 + 0.6) + 'rem';
       heart.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
       
