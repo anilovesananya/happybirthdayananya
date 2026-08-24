@@ -663,3 +663,11 @@ html {
   }
 }
 }
+/* Mobile-only adjustments for the countdown section */
+@media (max-width: 768px) {
+  .countdown-section {
+    padding-top: 2.5rem !important;    /* Trims the empty space at the top */
+    padding-bottom: 2.5rem !important; /* Trims the empty space at the bottom */
+    min-height: auto !important;       /* Prevents the box from forcing itself to be overly tall */
+  }
+}
