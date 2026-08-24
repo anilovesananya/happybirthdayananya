@@ -202,6 +202,11 @@ function openNoteModal(note, dayNum) {
 
   if (!modal || !modalPill || !modalMessage) return;
 
+  // ✅ Move the modal to the <html> root so position:fixed works correctly
+  if (modal.parentElement !== document.documentElement) {
+    document.documentElement.appendChild(modal);
+  }
+
   // Grab the day from Notion and clean out the word "Day" for the popup too
   const rawDay = note.day || note.Day || dayNum;
   const cleanDay = String(rawDay).replace(/day\s*/i, "").trim();
