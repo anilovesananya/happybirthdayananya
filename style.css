@@ -11,23 +11,31 @@
   padding: 0;
 }
 
+html {
+  background-color: #0c0b22;          /* fallback colour – no pattern here */
+  overflow-y: auto;                   /* ✅ only one scrollbar – on html */
+  overflow-x: hidden;
+  scrollbar-color: #ffe600 #0c0b22;
+  scrollbar-width: thin;
+}
+
 body {
   font-family: 'Nunito', sans-serif;
   background-color: transparent; 
   color: #fff9f0;
-  overflow: hidden;           /* ✅ prevents body from creating its own scrollbar */
-  position: relative;         /* makes body the containing block for ::before */
-  min-height: 100vh;          /* ensures background covers at least the viewport */
+  overflow: hidden;                   /* ✅ body does NOT scroll */
+  position: relative;                 /* anchor for ::before */
+  min-height: 100vh;                  /* fills viewport when content is short */
 }
 
-/* ✅ Hardware-accelerated background layer — scrolls dynamically with content */
+/* ✅ Hardware-accelerated background – now extends far beyond content */
 body::before {
   content: "";
   position: absolute;
-  top: 0;                     /* ← reverted from -150px */
+  top: -300px;                        /* pull up 300px */
   left: 0;
   width: 100vw;
-  height: 100%;               /* ← reverted from calc(100% + 300px) */
+  height: calc(100% + 600px);         /* add 300px top + 300px bottom */
   z-index: -1;
   background-color: #0c0b22; 
   background-image: url('bg-pattern.png');
@@ -36,7 +44,7 @@ body::before {
   background-size: 420px auto;
   pointer-events: none;
   
-  /* GPU Lock — keeps scroll jitter fixed */
+  /* GPU Lock – keeps scroll jitter fixed */
   transform: translate3d(0, 0, 0);
   -webkit-transform: translate3d(0, 0, 0);
   will-change: transform;
@@ -44,21 +52,7 @@ body::before {
   backface-visibility: hidden;
 }
 
-/* ✅ HTML background – fills the overscroll (rubber-band) area with the same pattern */
-html {
-  background-color: #0c0b22;                      /* fallback colour */
-  background-image: url('bg-pattern.png');        /* same pattern */
-  background-repeat: repeat;
-  background-position: center top;
-  background-size: 420px auto;
-  background-attachment: scroll;                  /* moves with content – dynamic! */
-  overflow-y: auto;                              /* handles scrolling */
-  overflow-x: hidden;
-  scrollbar-color: #ffe600 #0c0b22;
-  scrollbar-width: thin;
-}
-
-/* Restore scrollbar styles (they were on html, now we keep them) */
+/* Scrollbar styling (now on html) */
 ::-webkit-scrollbar {
   width: 10px;
 }
